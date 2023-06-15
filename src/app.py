@@ -1,29 +1,22 @@
-# Create a connection with a database which already exists
-# The information to log on database are
+from flask import Flask, render_template
+from database import DatabaseConnection
 
-'''
-- **Host:** localhost
-- **Port:** 5432
-- **login:** postgres
-- **password:** postgres
-- **database:** postgres
-- **url:** jdbc:postgresql://localhost:5432/postgres
-'''
+app = Flask(__name__)
 
-# Importing the libraries
-import psycopg2
+@app.route("/")
+def index():
+    db_connection = DatabaseConnection()
 
-# Create a connection with a database
-connection = psycopg2.connect(
-    host="localhost",
-    port="5432",
-    user="postgres",
-    password="postgres",
-    database="postgres"
-)
+    cursor = db_connection.cursor()
 
-# Create a cursor
-cursor = connection.cursor()
+    cursor.execute("SELECT * FROM airports")
 
-# Select all data from a table
-cursor.execute("SELECT * FROM airports")
+    rows = cursor.fetchall()
+
+    cursor.close()
+    db_connection.close()
+
+    return render_template("index.html", airports=rows[:20])
+
+if __name__ == "__main__":
+    app.run()
