@@ -1,6 +1,6 @@
 -- ############# This SQL query allows to create a Admin User in the Users table ############# --
 INSERT INTO Users (login, password, type, source_id)
-VALUES ('admin', 'admin', 'ADMIN', 0);
+VALUES ('admin', MD5('admin'), 'ADMIN', 0);
 
 -- ############# This SQL query allows you to migrate all existing data from the Constructor table to the Users table ############# --
 INSERT INTO Users (login, password, type, source_id)
