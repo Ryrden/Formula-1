@@ -9,12 +9,5 @@ FROM Constructors C;
 
 -- ############# This SQL query allows you to migrate all existing data from the Driver table to the Users table ############# --
 INSERT INTO Users (login, password, type, source_id)
-SELECT CONCAT(D.driverref, '_c'), MD5(D.driverref), 'DRIVER', D.driverid
+SELECT CONCAT(D.driverref, '_d'), MD5(D.driverref), 'DRIVER', D.driverid
 FROM Driver D;
-
-SELECT *
-FROM Constructors
-WHERE constructorref = 'martini';
-SELECT *
-FROM Driver
-WHERE driverref = 'martini';
