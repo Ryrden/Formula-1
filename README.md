@@ -53,7 +53,16 @@ nix develop
 ```
 
 ### Defina as variáveis de ambiente
-[Criar um .env depois]
+
+crie um arquivo .env na raiz do projeto e coloque as seguintes variáveis de ambiente:
+
+```bash
+DB_HOST=
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_DATABASE=
+```
 
 A partir daqui você deve conectar ao banco de dados utilizando as seguintes credenciais:
 
@@ -70,7 +79,7 @@ Após isso, dentro do script `init_schema.SQL` na pasta `database/`, substitua a
 
 **Caso esteja utilizando o `docker`:**
 
-substitua a string `DirLocal` por `/tables_csv/`:
+substitua a string `DirLocal` por `/database/tables_csv/`:
 
 **Caso esteja utilizando o `GUI do POSTGRESQL`:**
 
