@@ -1,2 +1,6 @@
 __pycache__/
 .idea/
+*.egg-info/
+.venv
+result/
+build/
