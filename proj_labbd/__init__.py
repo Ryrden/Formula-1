@@ -1,11 +1,11 @@
 from flask import Flask, render_template
-from database import DatabaseConnection
+from . import database
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    db_connection = DatabaseConnection()
+    db_connection = database.DatabaseConnection()
 
     cursor = db_connection.cursor()
 
@@ -17,6 +17,3 @@ def index():
     db_connection.close()
 
     return render_template("index.html", airports=rows[:20])
-
-if __name__ == "__main__":
-    app.run()
