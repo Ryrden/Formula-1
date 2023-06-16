@@ -14,7 +14,13 @@
 
 Antes de executar o projeto, certifique-se de ter as seguintes dependências instaladas:
 
-- Antes de começar, verifique se você possui o `Tecnologia X` instalado em sua máquina. Se não tiver, você pode baixar o `Tecnologia X` [aqui](https://exemplo_de_link.com).
+- Antes de começar, verifique se você possui o `Python` instalado em sua máquina. Se não tiver, você pode baixar o `Python` [aqui](https://www.python.org/downloads/).
+
+Há duas formas de executar o projeto, a primeira é utilizando o `docker` e a segunda é executando o projeto pelo `GUI do POSTGRESQL`.
+
+Portanto, caso opte por utilizar o `docker`, é necessário que o mesmo esteja instalado em sua máquina. Para isso, siga as instruções de instalação do [docker](https://docs.docker.com/engine/install/) e do [docker-compose](https://docs.docker.com/compose/install/).
+
+Caso opte por utilizar o `GUI do POSTGRESQL` (PG_ADMIN), é necessário que o mesmo esteja instalado em sua máquina. Para isso, siga as instruções de instalação do [postgresql](https://www.pgadmin.org/download/).
 
 ## Como executar o projeto
 
@@ -47,8 +53,52 @@ nix develop
 ```
 
 ### Defina as variáveis de ambiente
+[Criar um .env depois]
 
-Descrição de como definir as variáveis de ambiente
+A partir daqui você deve conectar ao banco de dados utilizando as seguintes credenciais:
+
+- **Host:** localhost
+- **Port:** 5432
+- **login:** postgres
+- **password:** postgres
+- **database:** postgres
+- **url:** jdbc:postgresql://localhost:5432/postgres
+
+## Criando tabelas e inserindo dados
+
+Após isso, dentro do script `init_schema.SQL` na pasta `database/`, substitua a `string` DirLocal pelo endereço onde se encontra as tabelas CSV para inserção dos dados. exemplo:
+
+**Caso esteja utilizando o `docker`:**
+
+substitua a string `DirLocal` por `/tables_csv/`:
+
+**Caso esteja utilizando o `GUI do POSTGRESQL`:**
+
+substitua a string `DirLocal` pelo endereço completo de uma pasta que contenha os arquivos CSV dentro do GUI do POSTGRESQL.
+
+por exemplo, se o PG_ADMIN estiver instalado em `C:\Program Files\pgAdmin 4\`, então crie a pasta `tables_csv` ai dentro e substitua a string `DirLocal` por `C:\\Program Files\\pgAdmin 4\\tables_csv\\`. (É necessário utilizar duas barras invertidas somente se estiver utilizando o SO Windows).
+
+Outra opção para inserir os dados pelo `PG_ADMIN` é utilizar a interface de Import/export para arquivos csv, para saber mais, acesse [Import/Export Data](https://www.pgadmin.org/docs/pgadmin4/development/import_export_data.html).
+
+### Subindo o docker
+
+Para executar o projeto utilizando o `docker`, basta executar o seguinte comando na raiz do projeto:
+
+```bash
+docker compose up -d
+```
+
+Assim que terminar a utilização e quiser parar o projeto, basta executar o seguinte comando:
+
+```bash
+docker compose down
+```
+
+se deseja apagar os dados do banco de dados, basta executar o mesmo comando anterior, porém com a flag `-v`:
+
+```bash
+docker compose down -v
+```
 
 ### Execute o Projeto
 
