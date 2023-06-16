@@ -48,7 +48,7 @@ $$
         DirLocal TEXT;
     BEGIN
         -- Editar para indicar diretorio onde estão os dados: VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-        DirLocal := './tables_csv/';
+        DirLocal := '/database/tables_csv/';
         --||||||||||||||||||||
 -- Editar só até aqui. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 --==============================================================================================================

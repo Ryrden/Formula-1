@@ -3,8 +3,16 @@ from . import database
 
 app = Flask(__name__)
 
+@app.route("/css/<path:path>")
+def css(path):
+    return app.send_static_file("css/" + path)
+
 @app.route("/")
 def index():
+    return render_template("index.html")
+
+@app.route("/airports")
+def airports():
     db_connection = database.DatabaseConnection()
 
     cursor = db_connection.cursor()

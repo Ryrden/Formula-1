@@ -1,3 +1,4 @@
+BEGIN;
 -- ############# This function is executed every time the constructor table undergoes any change, replicating this modification in the user table ############# --
 DROP FUNCTION IF EXISTS FC_Register_Constructor;
 CREATE FUNCTION FC_Register_Constructor(c constructors) RETURNS void AS
@@ -72,3 +73,4 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 -- ######################################################################################################## --
+COMMIT;
