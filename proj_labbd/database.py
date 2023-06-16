@@ -10,7 +10,7 @@ class DatabaseConnection:
                 host="localhost",
                 port="5432",
                 user="postgres",
-                password="0859",
+                password="postgres",
                 database="postgres"
             )
         return cls._instance
