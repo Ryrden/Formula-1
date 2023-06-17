@@ -49,20 +49,12 @@
 					<h1>Entrar</h1>
 					<h2>Um banco de dados de formula 1</h2>
 				</hgroup>
-				<form>
+				<form action="http://localhost:5000/login" method="post">
 					<input type="text" name="login" placeholder="Login" aria-label="Login"
 							autocomplete="nickname" required />
 					<input type="password" name="password" placeholder="Senha"
 							aria-label="Password" autocomplete="current-password" required />
-					<fieldset>
-						<label for="remember">
-							<input type="checkbox" role="switch" id="remember"
-									name="remember" />
-							Lembrar de mim
-						</label>
-					</fieldset>
-					<button type="submit" class="contrast"
-							onclick="event.preventDefault()">Entrar</button>
+					<button type="submit" class="contrast">Entrar</button>
 				</form>
 			</div>
 			<div>
@@ -80,7 +72,6 @@
 	<!-- ./ Footer -->
 
 	<!-- Minimal theme switcher -->
-	<script src="js/minimal-theme-switcher.js"></script>
 </body>
 <style>
 	/* Grid */
@@ -188,7 +179,6 @@
 		// Init
 		init() {
 			this.scheme = this.schemeFromLocalStorage;
-			this.initSwitchers();
 		},
 
 		// Get color scheme from local storage
@@ -205,25 +195,6 @@
 		get preferredColorScheme() {
 			return window.matchMedia("(prefers-color-scheme: dark)").matches ?
 				"dark" : "light";
-		},
-
-		// Init switchers
-		initSwitchers() {
-			const buttons = document.querySelectorAll(this.buttonsTarget);
-			buttons.forEach((button) => {
-				button.addEventListener(
-					"click",
-					(event) => {
-						event.preventDefault();
-						// Set scheme
-						this.scheme = button.getAttribute(this.buttonAttribute);
-						// Close dropdown
-						document.querySelector(this.menuTarget).removeAttribute(
-							"open");
-					},
-					false
-				);
-			});
 		},
 
 		// Set scheme

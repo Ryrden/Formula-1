@@ -1,11 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, request, redirect, render_template
 from . import database
 
 app = Flask(__name__)
-
-@app.route("/css/<path:path>")
-def css(path):
-    return app.send_static_file("css/" + path)
 
 @app.route("/")
 def index():
@@ -21,7 +17,27 @@ def airports():
 
     rows = cursor.fetchall()
 
-    cursor.close()
-    db_connection.close()
+    # TODO: Tratar close  do servidor
 
     return render_template("index.html", airports=rows[:20])
+
+# how to create post route with flask 
+@app.route("/login", methods=["POST"])
+def login_post():
+    username = request.form["login"]
+    password = request.form["password"]
+    
+    db_connection = database.DatabaseConnection()
+
+    cursor = db_connection.cursor()
+
+    cursor.execute("SELECT * FROM users WHERE login = %s AND password = md5(%s)", (username, password))
+
+    rows = cursor.fetchall()
+
+    if (len(rows) > 0):
+        return render_template("home.html", message="Login successful")
+    else:
+        return redirect("/")
+
+        
