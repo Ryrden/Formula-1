@@ -1,11 +1,18 @@
 from flask import Flask, request, redirect, session, render_template
 from flask_session import Session
+from flask_login import LoginManager, login_required
+from .models.user import User
 from . import database
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+login_manager = LoginManager(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
 
 @app.route("/")
 def login():
@@ -16,24 +23,24 @@ def login_post():
     username = request.form["login"]
     password = request.form["password"]
 
-    db_connection = database.DatabaseConnection()
-    cursor = db_connection.cursor()
-    cursor.execute("SELECT * FROM Users U WHERE login = %s AND password = md5(%s)", (username, password))
-    rows = cursor.fetchall()
+    user = User.authenticate(username, password)
 
-    if len(rows) == 1:
-        user_id, login, _, user_type, source_id = rows[0]
-        user_object = { "user_id": user_id, "username": login, "user_type": user_type, "source_id": source_id }
-        session["logged_in"] = True
-        session["user_object"] = user_object
-        return redirect("/overview")
-    else:
+    if user is None:
         return redirect("/")
 
+    session["user_object"] = user
+    session["logged_in"] = True
+
+    return redirect("/overview")
+
+
 @app.route("/overview")
+@login_required
 def overview():
     if session.get("logged_in"):
         user_object = session["user_object"]
+
+        print(user_object)
         
         db_connection = database.DatabaseConnection()
         cursor = db_connection.cursor()

@@ -22,7 +22,7 @@
 		<ul>
 			<li>
 				<a href="./" class="contrast"
-						onclick="event.preventDefault()"><strong>Lab. Banco de Dados</strong></a>
+						onclick="event.preventDefault()"><strong>SCC0541 - Laboratório de Bases de Dados</strong></a>
 			</li>
 		</ul>
 	</nav>
@@ -33,13 +33,13 @@
 		<article class="grid">
 			<div>
 				<hgroup>
-					<h1>Entrar</h1>
-					<h2>Um banco de dados de formula 1</h2>
+					<h1>Sign In</h1>
+					<h2>Welcome Back to a Formula 1 Database</h2>
 				</hgroup>
 				<form action="http://localhost:5000/login" method="post">
-					<input type="text" name="login" placeholder="Login" aria-label="Login"
+					<input id="loginInput" type="text" name="login" placeholder="Login" aria-label="Login"
 							autocomplete="nickname" required />
-					<input type="password" name="password" placeholder="Senha"
+					<input id="passwordInput" type="password" name="password" placeholder="Senha"
 							aria-label="Password" autocomplete="current-password" required />
 					<button type="submit" class="contrast">Entrar</button>
 				</form>
@@ -129,7 +129,7 @@
 	article div:nth-of-type(2) {
 		display: none;
 		background-color: #374956;
-		background-image: url("https://source.unsplash.com/featured/1000x1200");
+		background-image: url("https://quatrorodas.abril.com.br/wp-content/uploads/2022/10/Carro-de-Formula-1-da-Audi-1.jpg?quality=70&strip=info");
 		background-position: center;
 		background-size: cover;
 	}
@@ -153,70 +153,6 @@
 	 * Pico.css - https://picocss.com
 	 * Copyright 2019-2023 - Licensed under MIT
 	 */
-
-	const themeSwitcher = {
-		// Config
-		_scheme: "auto",
-		menuTarget: "details[role='list']",
-		buttonsTarget: "a[data-theme-switcher]",
-		buttonAttribute: "data-theme-switcher",
-		rootAttribute: "data-theme",
-		localStorageKey: "picoPreferredColorScheme",
-
-		// Init
-		init() {
-			this.scheme = this.schemeFromLocalStorage;
-		},
-
-		// Get color scheme from local storage
-		get schemeFromLocalStorage() {
-			if (typeof window.localStorage !== "undefined") {
-				if (window.localStorage.getItem(this.localStorageKey) !== null) {
-					return window.localStorage.getItem(this.localStorageKey);
-				}
-			}
-			return this._scheme;
-		},
-
-		// Preferred color scheme
-		get preferredColorScheme() {
-			return window.matchMedia("(prefers-color-scheme: dark)").matches ?
-				"dark" : "light";
-		},
-
-		// Set scheme
-		set scheme(scheme) {
-			if (scheme == "auto") {
-				this.preferredColorScheme == "dark" ? (this._scheme = "dark") : (this
-					._scheme = "light");
-			} else if (scheme == "dark" || scheme == "light") {
-				this._scheme = scheme;
-			}
-			this.applyScheme();
-			this.schemeToLocalStorage();
-		},
-
-		// Get scheme
-		get scheme() {
-			return this._scheme;
-		},
-
-		// Apply scheme
-		applyScheme() {
-			document.querySelector("html").setAttribute(this.rootAttribute, this
-				.scheme);
-		},
-
-		// Store scheme to local storage
-		schemeToLocalStorage() {
-			if (typeof window.localStorage !== "undefined") {
-				window.localStorage.setItem(this.localStorageKey, this.scheme);
-			}
-		},
-	};
-
-	// Init
-	themeSwitcher.init();
 </script>
 
 </html>
