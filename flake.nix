@@ -1,6 +1,6 @@
 {
   description = "A flake for Formula 1 Project";
-  
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };

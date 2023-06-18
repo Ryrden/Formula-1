@@ -10,13 +10,16 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 login_manager = LoginManager(app)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
 
+
 @app.route("/")
 def login():
     return render_template("index.html", action="valid_credentials")
+
 
 @app.route("/login", methods=["POST"])
 def login_post():
@@ -37,18 +40,16 @@ def login_post():
 @login_required
 def overview():
     user_object = session["user_object"]
-        
+
     db_connection = database.DatabaseConnection()
     cursor = db_connection.cursor()
-        
+
     switcher = {
         "driver": "SELECT CONCAT(D.forename, ' ' , D.surname) AS name FROM Driver D WHERE D.driverid = %s",
-        "constructor": "SELECT C.name FROM Constructors C WHERE C.constructorid = %s"
+        "constructor": "SELECT C.name FROM Constructors C WHERE C.constructorid = %s",
     }
-        
-    source_id = (
-        str(user_object["source_id"]),
-    )
+
+    source_id = (str(user_object["source_id"]),)
 
     match user_object["user_type"]:
         case "DRIVER":
@@ -63,6 +64,7 @@ def overview():
     user_object["name"] = name
 
     return render_template("overview.html", user=user_object, title="Overview")
+
 
 @app.context_processor
 def context_processor():

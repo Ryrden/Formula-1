@@ -137,7 +137,7 @@ A estrutura de pastas do projeto é organizada da seguinte maneira:
 * `database`: Scripts sql
 
 * `proj_labbd`: Projeto em si
-  
+
 * `...`: Outras informações
 
 ### Configurações e CI/CD
@@ -197,4 +197,3 @@ Este projeto está sob licença. Consulte [LICENSE](LICENSE.md) para obter mais 
 ## Voltar ao topo
 
 [⬆ Voltar ao topo](#título)
-

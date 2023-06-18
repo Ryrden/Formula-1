@@ -1,6 +1,7 @@
 from flask_login import UserMixin, login_user
 from ..services.user_service import UserService
 
+
 class User(UserMixin):
     def __init__(self, id):
         self.id = id
@@ -25,7 +26,7 @@ class User(UserMixin):
             "user_id": login["user_id"],
             "username": login["username"],
             "user_type": login["user_type"],
-            "source_id": login["source_id"]
+            "source_id": login["source_id"],
         }
 
         return user_data

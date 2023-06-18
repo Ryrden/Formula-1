@@ -5,4 +5,5 @@ __pycache__/
 result/
 build/
 .env
-/flask_session
+flask_session/
+.vscode/

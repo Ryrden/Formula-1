@@ -209,7 +209,7 @@ $$
             Status   TEXT
         );
 
---== Airports 
+--== Airports
         DROP TABLE IF EXISTS Airports CASCADE;
         CREATE TABLE Airports
         (
@@ -283,7 +283,7 @@ $$
             Keywords      TEXT
         );
 
---== GeoCities15K 
+--== GeoCities15K
         DROP TABLE IF EXISTS GeoCities15K CASCADE;
         CREATE TABLE GeoCities15K
         (
@@ -375,7 +375,7 @@ $$;
 
 ---- -- Tratar a tabela GeoCities15K ------------------------------------------------------------------------
 ---- -- Copia cada linha isolando cada valor como um campo de texto separado em cada atributo da tabela alvo.
-----    Executa os comandos dentro de uma transação para executar as converções no Estilo de data usado no arquivo 
+----    Executa os comandos dentro de uma transação para executar as converções no Estilo de data usado no arquivo
 ----    lido, e depois retornar para o estilo original da base de dados.
 START TRANSACTION; --======================================================================
 SET

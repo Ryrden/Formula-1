@@ -2,3 +2,4 @@ psycopg2
 flask
 flask_session
 flask_login
+pre-commit

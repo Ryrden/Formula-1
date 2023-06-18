@@ -28,7 +28,7 @@
         /*Variants*/
         --contrast: var(--white);
         --contrast-inverse: var(--black);
-        
+
         --primary: #8da1b3;
         --primary-hover: #11191f;
         --primary-focus: #22537087;

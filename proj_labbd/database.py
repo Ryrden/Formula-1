@@ -5,8 +5,9 @@ env = {
     "DB_PORT": 5432,
     "DB_USER": "postgres",
     "DB_PASSWORD": "0859",
-    "DB_DATABASE": "postgres"
+    "DB_DATABASE": "postgres",
 }
+
 
 class DatabaseConnection:
     _instance = None
@@ -19,6 +20,6 @@ class DatabaseConnection:
                 port=env["DB_PORT"] or 5432,
                 user=env["DB_USER"] or "postgres",
                 password=env["DB_PASSWORD"] or "postgres",
-                database=env["DB_DATABASE"] or "postgres"
+                database=env["DB_DATABASE"] or "postgres",
             )
         return cls._instance
