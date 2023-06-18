@@ -62,7 +62,7 @@ def overview():
 
     user_object["name"] = name
 
-    return render_template("overview.html", user=user_object)
+    return render_template("overview.html", user=user_object, title="Overview")
 
 @app.context_processor
 def context_processor():
