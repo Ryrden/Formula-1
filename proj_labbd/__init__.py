@@ -16,7 +16,7 @@ def load_user(user_id):
 
 @app.route("/")
 def login():
-    return render_template("index.html")
+    return render_template("index.html", action="login")
 
 @app.route("/login", methods=["POST"])
 def login_post():
@@ -26,7 +26,7 @@ def login_post():
     user = User.authenticate(username, password)
 
     if user is None:
-        return redirect("/")
+        return render_template("index.html", action="invalid_login")
 
     session["user_object"] = user
     session["logged_in"] = True
