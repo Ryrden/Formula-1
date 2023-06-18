@@ -5,26 +5,25 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Login - Laboratório de Banco de Dados</title>
-	<meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS." />
+
 	<link rel="shortcut icon" href="https://picocss.com/favicon.ico" />
 	<link rel="canonical" href="https://picocss.com/examples/sign-in/" />
 
 	<!-- Pico.css -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
 
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" href="../static/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="../static/font-awesome/css/fontawesome.min.css">
+
+	<!-- Colors -->
+	<link rel="stylesheet" href="../static/stylesheet/colors.css"/>
+
 </head>
 
 <body>
-	<!-- Nav -->
-	<nav class="container-fluid">
-		<ul>
-			<li>
-				<a href="./" class="contrast" onclick="event.preventDefault()"><strong>SCC0541 - Laboratório de Bases de
-						Dados</strong></a>
-			</li>
-		</ul>
-	</nav>
-	<!-- ./ Nav -->
+	{% set username = session["username"] %}
+	{% include "components/navbar.html" %}
 
 	<!-- Main -->
 	<main class="container">
@@ -48,36 +47,11 @@
 	</main>
 	<!-- ./ Main -->
 
-	<!-- Footer -->
-	<footer class="container-fluid">
-		<small>Feito com <a href="https://picocss.com" class="secondary">Pico.css</a> •
-			<a href="https://github.com/picocss/examples/tree/master/v1-sign-in/" class="secondary">Código
-				fonte</a></small>
-	</footer>
-	<!-- ./ Footer -->
+	{% if action == "invalid_credentials" %}
 
-	<!-- Modal -->
-	<section id="modal">
-		<!-- Modal example -->
-		{ % if action == "invalid_login" % }
-		<dialog id="invalid_login">
-			<article>
-				<a href="#close" aria-label="Close" class="close" data-target="invalid_login"
-					onclick="toggleModal(event)"></a>
-				<h3>Invalid Credentials</h3>
-				<p>
-					User not found in the database with those credentials.
-				</p>
-				<footer>
-					<a href="#confirm" role="button"
-						data-target="invalid_login" onclick="toggleModal(event)">Ok</a>
-				</footer>
-			</article>
-		</dialog>
-		{ % endif % }
-		<!-- ./ Modal example -->
-	</section>
-	<!-- ./ Modal -->
+	{% include "components/invalid_credentials.html" %}
+
+	{% endif %}
 
 	<!-- Minimal theme switcher -->
 </body>
@@ -99,7 +73,6 @@
 	.sign-in div {
 		padding: 1rem;
 	}
-
 
 
 	@media (min-width: 576px) {
@@ -145,13 +118,13 @@
 	/* Nav */
 	summary[role="link"].secondary:is([aria-current], :hover, :active, :focus) {
 		background-color: transparent;
-		color: var(--secondary-hover);
+		color: var(--secondary);
 	}
 
 	/* Hero Image */
 	.sign-in div:nth-of-type(2) {
 		display: none;
-		background-color: #374956;
+		background-color: var(--tertiary);
 		background-image: url("https://quatrorodas.abril.com.br/wp-content/uploads/2022/10/Carro-de-Formula-1-da-Audi-1.jpg?quality=70&strip=info");
 		background-position: center;
 		background-size: cover;
@@ -170,104 +143,6 @@
 </style>
 
 <script>
-	// Config
-	const isOpenClass = "modal-is-open";
-	const openingClass = "modal-is-opening";
-	const closingClass = "modal-is-closing";
-	const animationDuration = 400; // ms
-	let visibleModal = null;
-
-	// Toggle modal
-	const toggleModal = (event) => {
-		if(event == "invalid_login") {
-			openModal(document.getElementById("invalid_login"))
-			return
-		}
-
-		event.preventDefault();
-		const modal = document.getElementById(event.currentTarget.getAttribute("data-target"));
-		typeof modal != "undefined" && modal != null && isModalOpen(modal)
-			? closeModal(modal)
-			: openModal(modal);
-	};
-
-	// Is modal open
-	const isModalOpen = (modal) => {
-		return modal.hasAttribute("open") && modal.getAttribute("open") != "false" ? true : false;
-	};
-
-	// Open modal
-	const openModal = (modal) => {
-		if (isScrollbarVisible()) {
-			document.documentElement.style.setProperty("--scrollbar-width", `${getScrollbarWidth()}px`);
-		}
-		document.documentElement.classList.add(isOpenClass, openingClass);
-		setTimeout(() => {
-			visibleModal = modal;
-			document.documentElement.classList.remove(openingClass);
-		}, animationDuration);
-		modal.setAttribute("open", true);
-	};
-
-	// Close modal
-	const closeModal = (modal) => {
-		visibleModal = null;
-		document.documentElement.classList.add(closingClass);
-		setTimeout(() => {
-			document.documentElement.classList.remove(closingClass, isOpenClass);
-			document.documentElement.style.removeProperty("--scrollbar-width");
-			modal.removeAttribute("open");
-		}, animationDuration);
-	};
-
-	// Close with a click outside
-	document.addEventListener("click", (event) => {
-		if (visibleModal != null) {
-			const modalContent = visibleModal.querySelector("article");
-			const isClickInside = modalContent.contains(event.target);
-			!isClickInside && closeModal(visibleModal);
-		}
-	});
-
-	// Close with Esc key
-	document.addEventListener("keydown", (event) => {
-		if (event.key === "Escape" && visibleModal != null) {
-			closeModal(visibleModal);
-		}
-	});
-
-	// Get scrollbar width
-	const getScrollbarWidth = () => {
-		// Creating invisible container
-		const outer = document.createElement("div");
-		outer.style.visibility = "hidden";
-		outer.style.overflow = "scroll"; // forcing scrollbar to appear
-		outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
-		document.body.appendChild(outer);
-
-		// Creating inner element and placing it in the container
-		const inner = document.createElement("div");
-		outer.appendChild(inner);
-
-		// Calculating difference between container's full width and the child width
-		const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
-
-		// Removing temporary elements from the DOM
-		outer.parentNode.removeChild(outer);
-
-		return scrollbarWidth;
-	};
-
-	// Is scrollbar visible
-	const isScrollbarVisible = () => {
-		return document.body.scrollHeight > screen.height;
-	};
-
-	const action = "{{ action }}";
-
-	if (action == "invalid_login") {
-		toggleModal(action)
-	}
 </script>
 
 </html>

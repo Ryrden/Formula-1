@@ -1,0 +1,52 @@
+/* Pink (Common styles) */
+:root {
+    --form-element-active-border-color: var(--primary);
+    --form-element-focus-color: var(--primary-focus);
+    --switch-color: var(--primary-inverse);
+    --switch-checked-background-color: var(--primary);
+
+    --text-white: var(--muted-color);
+    --text-black: var(--black);
+}
+
+/* Pink Dark scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+@media only screen and (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        /*Elements colors*/
+        --background-color: var(--primary);
+        --card-background-color: var(--tertiary);
+        --form-element-background-color: rgb(89, 119, 143);
+        --form-element-color: var(--muted-color);
+
+        /*Texts colors*/
+        --mark-color: var(--primary);
+        --mark-background-color: var(--primary);
+        --muted-color: #FFF;
+        --muted-border-color: #1f2d38;
+
+        /*Variants*/
+        --contrast: var(--white);
+        --contrast-inverse: var(--black);
+        
+        --primary: #8da1b3;
+        --primary-hover: #11191f;
+        --primary-focus: #22537087;
+        --primary-inverse: #FFFFFF;
+
+        --secondary: #002a42;
+
+        --tertiary: #225370;
+
+        --white: #ffffff;
+        --black: #000000;
+    }
+}
+
+/*
+Colors default:
+--primary: #11191f;
+--secondary: #141e26;
+--tertiary: #374956;
+--white: #ffffff;
+*/

@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Overview - Laboratório de Banco de Dados</title>
-    <meta
-      name="description"
-      content="A starter example with all elements and components used in Pico design system. Built with Pico CSS."
-    />
-    <link rel="shortcut icon" href="https://picocss.com/favicon.ico" />
-    <link rel="canonical" href="https://picocss.com/examples/preview/" />
 
-    <!-- Pico.css -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Overview - Laboratório de Banco de Dados</title>
 
-  <body>
-    <!-- Main -->
-    <main class="container">
-      <!-- Preview -->
-      <section id="preview">
-        <h2>{{ user.name }}</h2>
-        <p>
-          Sed ultricies dolor non ante vulputate hendrerit. Vivamus sit amet suscipit sapien. Nulla
-          iaculis eros a elit pharetra egestas.
-        </p>
-      </section>
-      {% if user.user_type == "ADMIN" %}
-      <h1>Sou ADMIN</h1>
-      {% elif user.user_type == "DRIVER" %}
-      <h1>Sou DRIVER</h1>
-      {% endif %}
-      <!-- ./ Preview -->
+  <link rel="shortcut icon" href="https://picocss.com/favicon.ico" />
+  <link rel="canonical" href="https://picocss.com/examples/preview/" />
 
-      <!-- ./ Loading -->
-    </main>
-    <!-- ./ Main -->
+  <!-- Pico.css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
 
-    <!-- Footer -->
-    <footer class="container">
-      <small
-        >Built with <a href="https://picocss.com">Pico</a> •
-        <a href="https://github.com/picocss/examples/blob/master/v1-preview/index.html"
-          >Source code</a
-        ></small
-      >
-    </footer>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="../static/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="../static/font-awesome/css/fontawesome.min.css">
 
-  </body>
+  <!-- Colors -->
+	<link rel="stylesheet" href="../static/stylesheet/colors.css"/>
+</head>
+
+<body>
+  {% include "components/navbar.html" %}
+
+  <!-- Main -->
+  <main class="container">
+    <!-- Preview -->
+    <section id="preview">
+      <h2>{{ user.name }}</h2>
+      <p>
+        Sed ultricies dolor non ante vulputate hendrerit. Vivamus sit amet suscipit sapien. Nulla
+        iaculis eros a elit pharetra egestas.
+      </p>
+    </section>
+    {% if user.user_type == "ADMIN" %}
+    <h1>Sou ADMIN</h1>
+    {% elif user.user_type == "DRIVER" %}
+    <h1>Sou DRIVER</h1>
+    {% endif %}
+    <!-- ./ Preview -->
+
+    <!-- ./ Loading -->
+  </main>
+  <!-- ./ Main -->
+
+  {% include "components/footer.html" %}
+
+</body>
+
 </html>
