@@ -9,10 +9,6 @@
     --text-black: var(--black);
 }
 
-body {
-    font-size: 16px;
-}
-
 /* Pink Dark scheme (Auto) */
 /* Automatically enabled if user has Dark mode enabled */
 @media only screen and (prefers-color-scheme: dark) {

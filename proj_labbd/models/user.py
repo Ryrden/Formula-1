@@ -1,7 +1,6 @@
 from flask_login import UserMixin, login_user
 from ..services.user_service import UserService
 
-
 class User(UserMixin):
     def __init__(self, id):
         self.id = id
@@ -34,10 +33,6 @@ class User(UserMixin):
     @staticmethod
     def get_user_by_id(user_id):
         return UserService.get_user_by_id(user_id)
-
-    @staticmethod
-    def get_all_users():
-        return UserService.get_all_users()
 
     @staticmethod
     def insert_user(user):

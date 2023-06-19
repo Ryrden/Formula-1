@@ -1,40 +1,40 @@
 <footer>
-    <div class="footer-section">
+    <!-- <div class="footer-section">
         <h3>
             Knowledge Used
         </h3>
     </div>
     <div class="footer-section">
         <ul>
-            <li><a href="#">PostgresSQL</a></li>
-            <li><a href="#">Triggers</a></li>
-            <li><a href="#">Procedures</a></li>
-            <li><a href="#">Functions pgSQL</a></li>
+            <li>PostgresSQL</li>
+            <li>Triggers</li>
+            <li>Procedures</li>
+            <li>Functions pgSQL</li>
         </ul>
     </div>
     <div class="footer-section">
         <ul>
-            <li><a href="#">Python language</a></li>
-            <li><a href="#">JINJA</a></li>
-            <li><a href="#">Pico CSS</a></li>
-            <li><a href="#">Flask</a></li>
+            <li>Python language</li>
+            <li>JINJA</li>
+            <li>Pico CSS</li>
+            <li>Flask</li>
         </ul>
-    </div>
+    </div> -->
     <div class="footer-section">
         <div class="footer-image">
-            <a href="https://github.com/joaolucasp"> <img src="https://avatars.githubusercontent.com/u/83319546?v=4">
+            <a href="https://github.com/joaolucasp"> <img src="https://github.com/joaolucasp.png">
             </a>
             <p>João Lucas</p>
             <p>10994311</p>
         </div>
         <div class="footer-image">
-            <a href="https://github.com/joelcoelho29"> <img src="https://avatars.githubusercontent.com/u/61102108?v=4">
+            <a href="https://github.com/joelcoelho29"> <img src="https://github.com/joelcoelho29.png">
             </a>
             <p>Joel Coelho</p>
             <p>4865826</p>
         </div>
         <div class="footer-image">
-            <a href="https://github.com/Ryrden"> <img src="https://avatars.githubusercontent.com/u/76923948?v=4"> </a>
+            <a href="https://github.com/ryrden"> <img src="https://github.com/ryrden.png"> </a>
             <p>Ryan Souza</p>
             <p>10261481</p>
         </div>
@@ -44,13 +44,12 @@
 <style>
     footer {
         display: flex;
-        flex-direction: column;
+        position: sticky;
+        top: 100vh;
         justify-content: center;
-        align-items: center;
+        width: 100%;
         background-color: var(--tertiary);
-        max-height: 80px;
-        position: absolute;
-        bottom: 0;
+        max-height: fit-content;
     }
 
     .footer-section {
@@ -69,67 +68,18 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: auto 1rem;
+        margin: 0 1rem;
     }
 
     .footer-image img {
-        width: 60px;
-        height: 60px;
+        width: 5rem;
+        height: 5rem;
         border-radius: 50%;
-        margin-bottom: 5px;
+        margin-bottom: 0.5rem;
     }
 
     .footer-image p {
-        font-size: 0.8rem;
         font-weight: bold;
         margin: auto;
-    }
-
-    .footer-section ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .footer-section ul li {
-        margin: 5px 0;
-        list-style: outside;
-    }
-
-    .footer-section ul li a {
-        text-decoration: none;
-        color: var(--secondary);
-        font-size: 0.8rem;
-        font-weight: bold;
-    }
-
-    @media (max-width: 991px) {
-        footer {
-            flex-direction: row;
-            justify-content: space-around;
-            max-height: 120px;
-        }
-
-        .footer-section {
-            margin: 0;
-        }
-
-        .footer-section:nth-child(0),
-        .footer-section:nth-child(1),
-        .footer-section:nth-child(2),
-        .footer-section:nth-child(3) {
-            display: none;
-        }
-    }
-
-    @media (min-width: 992px) {
-        footer {
-            flex-direction: row;
-            justify-content: space-around;
-        }
-
-        .footer-section {
-            margin: 0;
-        }
     }
 </style>

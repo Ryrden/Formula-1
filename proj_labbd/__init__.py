@@ -3,11 +3,22 @@ from flask_session import Session
 from flask_login import LoginManager, login_required
 from .models.user import User
 from . import database
+#from flask_sass import Sass
+#import os
+# Session Config
+#app.config["SASS_ROOT"] = os.path.join(app.root_path, "static/sass")
+#app.config["SASS_OUTPUT_DIR"] = os.path.join(app.root_path, "static/css")
+#sass = Sass(app)
+#sass.compile(dirname=("static/sass", "static/css"), force=True)
 
 app = Flask(__name__)
+
+# Session Config
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+
 login_manager = LoginManager(app)
 
 
