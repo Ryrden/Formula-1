@@ -1,11 +1,12 @@
 <nav id="navbar" class="container-fluid">
     <div>
-        <a href="./" onclick="event.preventDefault()"><strong>SCC0541 - Laboratório de Bases de Dados</strong></a>
+        <a href="/overview"><strong>SCC0541 - Laboratório de Bases de
+                Dados</strong></a>
     </div>
 
     {% if get_username() != None %}
     <ul>
-        <li>
+        {# <li>
             {% if request.path != '/reports' %}
             <a href="/reports" class="reports" role="button">
                 <i class="fa-solid fa-file fa-lg"></i>
@@ -17,7 +18,7 @@
                 Back
             </a>
             {% endif %}
-        </li>
+        </li> #}
         <li>
             <span>{{ get_username() }}</span>
         </li>

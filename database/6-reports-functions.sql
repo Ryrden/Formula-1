@@ -61,7 +61,7 @@ $$ LANGUAGE plpgsql;
 
 -- Eu acho q esta certo mas n sei alguma cidade Brasileira para testar
 select *
-from report2('Boa Viagem');
+from report1();
 
 -- ESCUDEIRA
 
