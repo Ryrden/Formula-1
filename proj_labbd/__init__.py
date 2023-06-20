@@ -44,6 +44,34 @@ def login_post():
     return redirect("/overview")
 
 
+# TODO: Pegar qual tipo de relatório é por query Params
+@app.route("/report1")
+@login_required
+def reports():
+    user_object = session["user_object"]
+
+    switcher = {
+        "admin_report1": "SELECT * FROM report1()",
+        # TODO: Add other reports
+    }
+
+    db_connection = database.DatabaseConnection()
+    cursor = db_connection.cursor()
+
+    match user_object["type"]:
+        case "ADMIN":
+            cursor.execute(switcher.get("admin_report1"))
+            report = cursor.fetchall()
+        case "DRIVER":
+            # TODO: Add driver report
+            report = None
+        case "RACING_TEAM":
+            # TODO: Add racing team report
+            report = None
+
+    return render_template("./reports/report1.html.jinja", user=user_object, report=report)
+
+
 @app.context_processor
 def context_processor():
     def get_username():

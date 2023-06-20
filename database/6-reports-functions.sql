@@ -60,8 +60,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Eu acho q esta certo mas n sei alguma cidade Brasileira para testar
-select *
-from report1();
 
 -- ESCUDEIRA
 

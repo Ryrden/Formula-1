@@ -2,7 +2,7 @@
 footer {
 	background-color: var(--tertiary);
 	text-align: center;
-	min-height: fit-content;
+	padding: 0.5rem !important;
 }
 
 #footer-container {
@@ -10,9 +10,8 @@ footer {
 	justify-content: space-around;
 	align-items: center;
 	position: sticky;
-	top: 100vh;
+	bottom: 0vh;
 	width: 100%;
-	margin-bottom: 4em;
 }
 
 .footer-knowledge-section {
@@ -28,7 +27,7 @@ footer {
 }
 
 .footer-knowledge-section li {
-	list-style: none;
+	list-style: disc;
 }
 
 .footer-member-section {
@@ -48,7 +47,6 @@ footer {
 	width: 4rem;
 	height: 4rem;
 	border-radius: 50%;
-	margin-bottom: 0.5rem;
 }
 
 .footer-member a {
@@ -58,6 +56,11 @@ footer {
 .footer-member p {
 	text-align: center;
 	font-weight: bold;
+	margin: 0.1rem;
+}
+
+.footer-credits p {
+	margin: 0;
 }
 
 /* Adicione estilos adicionais para tornar o footer responsivo conforme necessário */
