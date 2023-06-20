@@ -8,7 +8,7 @@ def with_db_connection(func):
         cursor = db_connection.cursor()
 
         try:
-            result = func(cursor, *args, **kwargs)
+            result = func(*args, **kwargs)
             db_connection.commit()
             return result
         except Exception as e:
