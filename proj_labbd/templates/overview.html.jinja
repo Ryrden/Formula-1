@@ -1,0 +1,26 @@
+{% extends "base.html.jinja" %}
+
+{% block content %}
+<!-- Preview -->
+<section>
+  <h2>{{ user.name }}</h2>
+  <p>
+    Sed ultricies dolor non ante vulputate hendrerit. Vivamus sit amet suscipit sapien. Nulla
+    iaculis eros a elit pharetra egestas.
+  </p>
+</section>
+<!-- ./ Preview -->
+
+<section id="overview">
+  {% include "components/card.html.jinja" %}
+
+  {% include "components/card.html.jinja" %}
+
+  {% include "components/card.html.jinja" %}
+
+  {% include "components/card.html.jinja" %}
+</section>
+
+{% include "components/footer.html.jinja" %}
+
+{% endblock %}

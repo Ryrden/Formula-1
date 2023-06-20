@@ -1,0 +1,84 @@
+/* Grid */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 7rem);
+    padding: 1rem 0;
+}
+
+.sign-in {
+    padding: 0;
+    overflow: hidden;
+}
+
+.sign-in div {
+    padding: 1rem;
+}
+
+
+@media (min-width: 576px) {
+    main {
+        padding: 1.25rem 0;
+    }
+
+    .sign-in div {
+        padding: 1.25rem;
+    }
+}
+
+@media (min-width: 768px) {
+    main {
+        padding: 1.5rem 0;
+    }
+
+    .sign-in div {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    main {
+        padding: 1.75rem 0;
+    }
+
+    .sign-in div {
+        padding: 1.75rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    main {
+        padding: 2rem 0;
+    }
+
+    .sign-in div {
+        padding: 2rem;
+    }
+}
+
+/* Nav */
+summary[role="link"].secondary:is([aria-current], :hover, :active, :focus) {
+    background-color: transparent;
+    color: var(--secondary);
+}
+
+/* Hero Image */
+.sign-in div:nth-of-type(2) {
+    display: none;
+    background-color: var(--tertiary);
+    background-image: url("https://quatrorodas.abril.com.br/wp-content/uploads/2022/10/Carro-de-Formula-1-da-Audi-1.jpg?quality=70&strip=info");
+    background-position: center;
+    background-size: cover;
+}
+
+@media (min-width: 992px) {
+    .grid>div:nth-of-type(2) {
+        display: block;
+    }
+}
+
+/* Footer */
+footer {
+    padding: 1rem 0;
+}

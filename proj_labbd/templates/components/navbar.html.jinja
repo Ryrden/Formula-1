@@ -1,0 +1,27 @@
+<nav id="navbar" class="container-fluid">
+    <div>
+        <a href="./" onclick="event.preventDefault()"><strong>SCC0541 - Laboratório de Bases de Dados</strong></a>
+    </div>
+
+    {% if get_username() != None %}
+    <ul>
+        <li>
+            <a href="#" class="reports" role="button">
+                <i class="fa-solid fa-file fa-lg"></i>
+                Reports
+            </a>
+        </li>
+        <li>
+            <span>{{ get_username() }}</span>
+        </li>
+        <li>
+            <details role="list" dir="rtl">
+                <summary aria-haspopup="listbox" role="link"> <i class="fa-solid fa-user fa-lg"></i> </summary>
+                <ul role="listbox">
+                    <li><a onclick="logout()">Logout</a></li>
+                </ul>
+            </details>
+        </li>
+    </ul>
+    {% endif %}
+</nav>

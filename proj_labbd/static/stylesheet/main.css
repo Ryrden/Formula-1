@@ -1,0 +1,10 @@
+@import "_base.css";
+@import "_style.css";
+
+/* Components */
+@import "components/navbar.css";
+
+
+/* Pages */
+@import "pages/index.css";
+

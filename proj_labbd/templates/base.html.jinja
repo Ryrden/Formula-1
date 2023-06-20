@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include "components/header.html.jinja" %}
+
+<body>
+    {% include "components/navbar.html.jinja" %}
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}
+
+</html>

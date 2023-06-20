@@ -3,13 +3,6 @@ from flask_session import Session
 from flask_login import LoginManager, login_required
 from .models.user import User
 from . import database
-#from flask_sass import Sass
-#import os
-# Session Config
-#app.config["SASS_ROOT"] = os.path.join(app.root_path, "static/sass")
-#app.config["SASS_OUTPUT_DIR"] = os.path.join(app.root_path, "static/css")
-#sass = Sass(app)
-#sass.compile(dirname=("static/sass", "static/css"), force=True)
 
 app = Flask(__name__)
 
@@ -29,7 +22,7 @@ def load_user(user_id):
 
 @app.route("/")
 def login():
-    return render_template("index.html", action="valid_credentials")
+    return render_template("index.html.jinja", action="valid_credentials")
 
 
 @app.route("/login", methods=["POST"])
@@ -40,7 +33,7 @@ def login_post():
     user = User.authenticate(username, password)
 
     if user is None:
-        return render_template("index.html", action="invalid_credentials")
+        return render_template("index.html.jinja", action="invalid_credentials")
 
     session["user_object"] = user
 
@@ -74,7 +67,7 @@ def overview():
 
     user_object["name"] = name
 
-    return render_template("overview.html", user=user_object, title="Overview")
+    return render_template("overview.html.jinja", user=user_object, title="Overview")
 
 
 @app.context_processor
