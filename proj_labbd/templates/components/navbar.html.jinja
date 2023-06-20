@@ -6,10 +6,17 @@
     {% if get_username() != None %}
     <ul>
         <li>
-            <a href="#" class="reports" role="button">
+            {% if request.path != '/reports' %}
+            <a href="/reports" class="reports" role="button">
                 <i class="fa-solid fa-file fa-lg"></i>
                 Reports
             </a>
+            {% else %}
+            <a href="./" class="reports" role="button">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+                Back
+            </a>
+            {% endif %}
         </li>
         <li>
             <span>{{ get_username() }}</span>

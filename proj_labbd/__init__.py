@@ -67,6 +67,11 @@ def overview():
 
     return render_template("overview.html.jinja", user=user_object, title="Overview")
 
+@app.route("/reports")
+@login_required
+def reports():
+    return render_template("reports.html.jinja")
+
 
 @app.context_processor
 def context_processor():
