@@ -1,37 +1,74 @@
+/* Adicione estilos adicionais para tornar o footer responsivo conforme necessário */
 footer {
-    display: flex;
-    position: sticky;
-    justify-content: space-around;
-    top: 100vh;
-    width: 100%;
-    height: fit-content;
-    padding: 2em 0 !important;
-    background-color: var(--tertiary);
+	background-color: var(--tertiary);
+	text-align: center;
+	min-height: fit-content;
 }
 
-.footer-section {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+#footer-container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	position: sticky;
+	top: 100vh;
+	width: 100%;
+	margin-bottom: 4em;
 }
 
-.footer-image {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 1rem;
+.footer-knowledge-section {
+	text-align: start;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	width: 15rem;
 }
 
-.footer-image img {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    margin-bottom: 0.5rem;
+.footer-knowledge-section ul {
+	width: 100%;
 }
 
-.footer-image p {
-    font-weight: bold;
+.footer-knowledge-section li {
+	list-style: none;
+}
+
+.footer-member-section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer-member {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 1rem;
+}
+
+.footer-member img {
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
+	margin-bottom: 0.5rem;
+}
+
+.footer-member a {
+	text-align: center;
+}
+
+.footer-member p {
+	text-align: center;
+	font-weight: bold;
+}
+
+/* Adicione estilos adicionais para tornar o footer responsivo conforme necessário */
+/* Estilos para dispositivos móveis */
+@media (max-width: 900px) {
+	#footer-container {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.footer-member {
+		margin: 0.5em;
+	}
 }
