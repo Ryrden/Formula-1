@@ -3,12 +3,20 @@
 {% block content %}
 <h1>{{ user.name }} Overview</h1>
 <section id="overview">
-  {% with title="Relatório 1", description="Status", href_link="/report1" %}
+  {# {% with title="Relatório 1", description="Status", href_link="/report1" %}
   {% include "components/card.html.jinja" %}
   {% endwith %}
   {% with title="Relatório 2", description="Distâncias", href_link="/report2" %}
+  {% include "components/card.html.jinja" %} }
+  {% endwith %#}
+
+  {% for card in overview_cards %}
+  {% with title=card.title, description=card.description, value=card.value %}
   {% include "components/card.html.jinja" %}
   {% endwith %}
+  {% endfor %}
+
+
 </section>
 
 {% endblock %}

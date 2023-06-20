@@ -16,26 +16,44 @@ overview_bp = Blueprint("overview", __name__)
 def overview():
     user_object = session["user_object"]
 
-    db_connection = database.DatabaseConnection()
-    cursor = db_connection.cursor()
+    overview_cards = _get_overview_driver()
 
-    switcher = {
-        "driver": "SELECT CONCAT(D.forename, ' ' , D.surname) AS name FROM Driver D WHERE D.driverid = %s",
-        "constructor": "SELECT C.name FROM Constructors C WHERE C.constructorid = %s",
+    return render_template("overview.html.jinja", user=user_object, overview_cards=overview_cards)
+
+
+def _get_overview_driver():
+    amount_drivers = {
+        "title": "Amount of Drivers Registered",
+        "type_card": "default",
+        "description": "Description here",
+        "value": 20
     }
 
-    source_id = (str(user_object["source_id"]),)
+    amount_racing_team = {
+        "title": "Amount of Racing Teams Registered",
+        "type_card": "default",
+        "description": "Description here",
+        "value": 20
+    }
 
-    match user_object["type"]:
-        case "DRIVER":
-            cursor.execute(switcher.get("driver"), source_id)
-            name = cursor.fetchone()[0]
-        case "RACING_TEAM":
-            cursor.execute(switcher.get("constructor"), source_id)
-            name = cursor.fetchone()[0]
-        case "ADMIN":
-            name = "Administrator"
+    amount_races = {
+        "title": "Amount of Races Registered",
+        "type_card": "default",
+        "description": "Description here",
+        "value": 20
+    }
 
-    user_object["name"] = name
+    amount_seasons = {
+        "title": "Amount of Seasons Registered",
+        "type_card": "default",
+        "description": "Description here",
+        "value": 20
+    }
 
-    return render_template("overview.html.jinja", user=user_object, title="Overview")
+    return [
+        amount_drivers,
+        amount_racing_team,
+        amount_races,
+        amount_seasons
+    ]
+
