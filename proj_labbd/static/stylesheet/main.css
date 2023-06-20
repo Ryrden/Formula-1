@@ -2,9 +2,10 @@
 @import "_style.css";
 
 /* Components */
+@import "components/card.css";
 @import "components/navbar.css";
-
+@import "components/footer.css";
 
 /* Pages */
 @import "pages/index.css";
-
+@import "pages/overview.css";

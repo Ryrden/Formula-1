@@ -16,9 +16,7 @@ class Admin:
     @staticmethod
     def get_amount_races():
         return RacesService.get_amount_races()
-        pass
 
     @staticmethod
     def get_amount_seasons():
         return SeasonsService.get_amount_seasons()
-        pass

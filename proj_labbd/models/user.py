@@ -16,19 +16,10 @@ class User(UserMixin):
         if login is None:
             return None
 
-        user_id, username, user_type, source_id = login
-
         user = User(login["user_id"])
         login_user(user)
 
-        user_data = {
-            "user_id": login["user_id"],
-            "username": login["username"],
-            "user_type": login["user_type"],
-            "source_id": login["source_id"],
-        }
-
-        return user_data
+        return login
 
     @staticmethod
     def get_user_by_id(user_id):
