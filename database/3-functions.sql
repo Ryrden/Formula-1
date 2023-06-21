@@ -1,76 +1,76 @@
-BEGIN;
 -- ############# This function is executed every time the constructor table undergoes any change, replicating this modification in the user table ############# --
-DROP FUNCTION IF EXISTS FC_Register_Constructor;
-CREATE FUNCTION FC_Register_Constructor(c constructors) RETURNS void AS
+CREATE OR REPLACE FUNCTION FC_Register_Constructor() RETURNS TRIGGER AS
 $$
 DECLARE
     user_exists bool;
 BEGIN
-    -- Check that's if user exists before insert
-    SELECT EXISTS(SELECT source_id
-                  FROM Users
-                  WHERE source_id = c.constructorid
-                    AND type = 'RACING_TEAM')
-    INTO user_exists;
+    CASE TG_OP
+        WHEN 'INSERT' THEN -- Check that's if user exists before insert
+        SELECT EXISTS(SELECT source_id
+                      FROM Users
+                      WHERE source_id = NEW.constructorid
+                        AND type = 'RACING_TEAM')
+        INTO user_exists;
 
-    IF user_exists THEN
-        RAISE EXCEPTION 'The constructor "%" is already a registered user', c.constructorref;
-    END IF;
+        IF user_exists THEN
+            RAISE EXCEPTION 'The constructor "%" is already a registered user', NEW.constructorref;
+        END IF;
 
-    INSERT INTO Users (login, password, type, source_id)
-    VALUES (CONCAT(c.constructorref, '_c'),
-            md5(c.constructorref),
-            'RACING_TEAM',
-            c.constructorid);
+        INSERT INTO Users (login, password, type, source_id)
+        VALUES (CONCAT(NEW.constructorref, '_c'),
+                md5(NEW.constructorref),
+                'RACING_TEAM',
+                NEW.constructorid);
+
+        WHEN 'UPDATE' THEN UPDATE Users
+                           SET login    = CONCAT(NEW.constructorref, '_c'),
+                               password = md5(NEW.constructorref),
+                               type     = 'RACING_TEAM'
+                           WHERE source_id = NEW.constructorid
+                             AND type = 'RACING_TEAM';
+
+        END CASE;
+
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+COMMIT;
 
 -- ############# This function is executed every time the driver table undergoes any change, replicating this modification in the user table ############# --
-DROP FUNCTION IF EXISTS FC_Register_Driver;
-CREATE FUNCTION FC_Register_Driver(d driver) RETURNS void AS
+CREATE OR REPLACE FUNCTION FC_Register_Driver() RETURNS TRIGGER AS
 $$
 DECLARE
     user_exists bool;
 BEGIN
-    -- Check that's if user exists before insert
-    SELECT EXISTS(SELECT source_id
-                  FROM Users
-                  WHERE source_id = d.driverid
-                    AND type = 'DRIVER')
-    INTO user_exists;
+    CASE TG_OP
+        WHEN 'INSERT' THEN -- Check that's if user exists before INSERT
+        SELECT EXISTS(SELECT source_id
+                      FROM Users
+                      WHERE source_id = NEW.driverid
+                        AND type = 'DRIVER')
+        INTO user_exists;
 
-    IF user_exists THEN
-        RAISE EXCEPTION 'The driver "%" is already a registered user', d.driverref;
-    END IF;
+        IF user_exists THEN
+            RAISE EXCEPTION 'The driver "%" is already a registered user', NEW.driverref;
+        END IF;
 
-    INSERT INTO Users (login, password, type, source_id)
-    VALUES (CONCAT(d.driverref, '_d'),
-            md5(d.driverref),
-            'DRIVER',
-            d.driverid);
-END;
-$$ LANGUAGE plpgsql;
--- ######################################################################################################## --
+        INSERT INTO Users (login, password, type, source_id)
+        VALUES (CONCAT(NEW.driverref, '_d'),
+                md5(NEW.driverref),
+                'DRIVER',
+                NEW.driverid);
 
--- ############# Function for insert trigger in Constructor table ############# --
-DROP FUNCTION IF EXISTS FC_Insert_Constructor;
-CREATE FUNCTION FC_Insert_Constructor() RETURNS trigger AS
-$$
-BEGIN
-    PERFORM FC_Register_Constructor(NEW);
+        WHEN 'UPDATE' THEN UPDATE Users
+                           SET login    = CONCAT(NEW.driverref, '_d'),
+                               password = md5(NEW.driverref),
+                               type     = 'DRIVER'
+                           WHERE source_id = NEW.driverid
+                             AND type = 'DRIVER';
+
+        END CASE;
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
-
--- ############# Function for insert trigger in Driver table ############# --
-DROP FUNCTION IF EXISTS FC_Insert_Driver;
-CREATE FUNCTION FC_Insert_Driver() RETURNS trigger AS
-$$
-BEGIN
-    PERFORM FC_Register_Driver(NEW);
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
--- ######################################################################################################## --
 COMMIT;
+-- ######################################################################################################## --
