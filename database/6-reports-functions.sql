@@ -107,6 +107,51 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- PILOTO
 
+-- Relatório 5
+
+-- TODO: Criar indice
+CREATE OR REPLACE FUNCTION report5(int)
+    RETURNS TABLE
+            (
+                wins bigint,
+                year integer,
+                race text
+            )
+AS
+$$
+BEGIN
+    RETURN QUERY
+        SELECT COUNT(*) AS wins, ra.year, ra.name
+        FROM results rs
+                 JOIN races ra USING (raceid)
+        WHERE rs.driverid = $1
+          AND rs.position = 1
+        GROUP BY ROLLUP (ra.year, ra.name)
+        ORDER BY ra.year DESC NULLS FIRST, ra.name NULLS FIRST; -- FIRST LINE = TOTAL WINS
+END;
+$$ LANGUAGE plpgsql;
+
+-- Relatório 6
+
+CREATE OR REPLACE FUNCTION report6(int)
+    RETURNS TABLE
+            (
+                status text,
+                count  bigint
+            )
+AS
+$$
+BEGIN
+    RETURN QUERY
+        SELECT s.status, COUNT(*)
+        FROM results r
+                 JOIN status s USING (statusid)
+        WHERE r.driverid = $1
+        GROUP BY s.status, s.statusid
+        ORDER BY s.statusid;
+END;
+$$ LANGUAGE plpgsql;
 
 COMMIT;
