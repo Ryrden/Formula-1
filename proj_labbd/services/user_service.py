@@ -25,8 +25,21 @@ class UserService:
 
         if row is None:
             return None
+
+        UserService.register_log(row[0])
             
         return UserService._get_dto_user(*row)
+
+    @staticmethod
+    def register_log(user_id):
+        db_connection = database()
+        cursor = db_connection.cursor()
+
+        query = ("INSERT INTO log_table (userid) VALUES (%s)")
+        params = (user_id,)
+
+        cursor.execute(query, params)
+        db_connection.commit()
 
     @staticmethod
     def get_user_by_id(user_id):
