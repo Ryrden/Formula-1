@@ -67,7 +67,7 @@ summary[role="link"].secondary:is([aria-current], :hover, :active, :focus) {
 .sign-in div:nth-of-type(2) {
     display: none;
     background-color: var(--tertiary);
-    background-image: url("https://quatrorodas.abril.com.br/wp-content/uploads/2022/10/Carro-de-Formula-1-da-Audi-1.jpg?quality=70&strip=info");
+    background-image: url("../../images/car.png");
     background-position: center;
     background-size: cover;
 }

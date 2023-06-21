@@ -1,7 +1,7 @@
 from ..database import DatabaseConnection as database
 from .base_service import with_db_connection
 
-class RacesService:
+class RaceService:
     @staticmethod
     def _get_dto_race(race_id, year, rownd, circuit_id, name, date, time):
         return {
@@ -28,7 +28,7 @@ class RacesService:
         if row is None:
             return None
 
-        return RacesService._get_dto_race(*row)
+        return RaceService._get_dto_race(*row)
 
     @staticmethod
     def get_all_races():
@@ -43,7 +43,7 @@ class RacesService:
         races = []
 
         for row in rows:
-            race = RacesService._get_dto_race(*row)
+            race = RaceService._get_dto_race(*row)
             races.append(race)
 
         return races

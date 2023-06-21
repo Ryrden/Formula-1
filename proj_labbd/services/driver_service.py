@@ -78,19 +78,25 @@ class DriverService:
         return row[0]
 
     @staticmethod
-    def get_occurrences(driver_id):
+    def get_first_and_last_ocurrences(driver_id):
         db_connection = database()
         cursor = db_connection.cursor()
 
-        query = ("SELECT COUNT(R.driverid) FROM Results R WHERE R.driverid = %s")
+        query = ("SELECT MIN(RA.year) AS oldest, MAX(RA.year) AS latest FROM Results RE JOIN Races RA ON RE.raceid = RA.raceid WHERE RE.driverid = %s;")
         params = (driver_id,)
 
         cursor.execute(query, params)
         row = cursor.fetchone()
-
+        
         if row is None:
             return None
 
-        return row[0]
+        oldest, latest = row
 
+        ocurrences_data = {
+            "oldest": oldest,
+            "latest": latest
+        }
 
+        return ocurrences_data
+    

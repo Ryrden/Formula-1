@@ -1,13 +1,29 @@
 <article class="card">
     <div class="card-image">
-        <img
-            src="https://quatrorodas.abril.com.br/wp-content/uploads/2022/10/Carro-de-Formula-1-da-Audi-1.jpg?quality=70&strip=info">
+        <img src="../../static/images/{{ image }}">
     </div>
 
     <div class="card-content">
         <h6>{{ title }}</h6>
         <p>{{ description }}</p>
 
-        <a role="button" href="./" class="btn">{{ value }}</a>
+        {% if type == "default" %}
+        <span role="button" class="btn">{{ value }}</span>
+
+        {% elif type == "date" %}
+
+        <div class="two-btn">
+            <div>
+                <label for="firstDate">First Date</label>
+                <span id="firstDate" role="button" class="btn">{{ value.oldest }}</span>
+            </div>
+
+            <div>
+                <label for="lastDate">Last Date</label>
+                <span id="lastDate" role="button" class="btn">{{ value.latest }}</span>
+            </div>
+        </div>
+
+        {% endif %}
     </div>
 </article>

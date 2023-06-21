@@ -45,6 +45,7 @@ class RacingTeamService:
 
         return racing_teams
 
+
     @staticmethod
     def get_amount_racing_team():
         db_connection = database()
@@ -59,3 +60,58 @@ class RacingTeamService:
             return None
 
         return row[0]
+
+    @staticmethod
+    def get_amount_wins(constructor_id):
+        db_connection = database()
+        cursor = db_connection.cursor()
+
+        query = ("SELECT COUNT(R.resultid) FROM Results R WHERE R.constructorid = %s AND R.position = 1;")
+        params = (constructor_id,)
+
+        cursor.execute(query, params)
+        row = cursor.fetchone()
+
+        if row is None:
+            return None
+
+        return row[0]
+
+    @staticmethod
+    def get_diff_drivers(constructor_id):
+        db_connection = database()
+        cursor = db_connection.cursor()
+
+        query = ("SELECT COUNT(DISTINCT R.driverid) FROM Results R WHERE R.constructorid = %s;")
+        params = (constructor_id,)
+
+        cursor.execute(query, params)
+        row = cursor.fetchone()
+
+        if row is None:
+            return None
+
+        return row[0]
+
+    @staticmethod
+    def get_first_and_last_ocurrences(constructor_id):
+        db_connection = database()
+        cursor = db_connection.cursor()
+
+        query = ("SELECT MIN(RA.year) AS oldest, MAX(RA.year) AS latest FROM Results RE JOIN Races RA ON RE.raceid = RA.raceid WHERE RE.constructorid = %s;")
+        params = (constructor_id,)
+
+        cursor.execute(query, params)
+        row = cursor.fetchone()
+        
+        if row is None:
+            return None
+
+        oldest, latest = row
+
+        ocurrences_data = {
+            "oldest": oldest,
+            "latest": latest
+        }
+
+        return ocurrences_data

@@ -10,9 +10,9 @@ class RacingTeam:
         return RacingTeamService.get_amount_wins(racing_team_name)
 
     @staticmethod
-    def get_amount_different_drivers(driver_id):
-        return RacingTeamService.get_amount_different_drivers(driver_id)
+    def get_diff_drivers(driver_id):
+        return RacingTeamService.get_diff_drivers(driver_id)
 
     @staticmethod
-    def get_occurrences(racing_team_name):
-        return RacingTeamService.get_ocurrences(racing_team_name)
+    def get_first_and_last_ocurrences(racing_team_name):
+        return RacingTeamService.get_first_and_last_ocurrences(racing_team_name)
