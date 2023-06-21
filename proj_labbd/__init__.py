@@ -8,6 +8,9 @@ from .overview import overview_bp
 
 # Import Models
 from .models.user import User
+from .models.admin import Admin
+from .models.racing_team import RacingTeam
+from .models.driver import Driver
 
 app = Flask(__name__)
 app.register_blueprint(overview_bp)
@@ -46,32 +49,40 @@ def login_post():
     return redirect("/overview")
 
 
-# TODO: Pegar qual tipo de relatório é por query Params
-@app.route("/report1")
+@app.route("/report/<int:report_id>", methods=["GET"])
 @login_required
-def reports():
+def reports_get(report_id):
+    return render_template(
+        f"./reports/report{report_id}.html.jinja", user=session["user_object"]
+    )
+
+
+# Essa lógica ta uma Bosta e só funciona pro Report 1 do ADMIN,
+# algumas reports tem input, n sei como faremos (acho q o melhor é um template pra cada report)
+@app.route("/report/<int:report_id>", methods=["POST"])
+@login_required
+def reports(report_id, params=None):
+    if report_id not in (1, 2):
+        return redirect("/overview")
+
     user_object = session["user_object"]
+    user_type = user_object["type"]
 
-    switcher = {
-        "admin_report1": "SELECT * FROM report1()",
-        # TODO: Add other reports
-    }
+    print(user_type, report_id)
 
-    db_connection = database.DatabaseConnection()
-    cursor = db_connection.cursor()
+    report = None
+    if user_type == "ADMIN":
+        report = Admin.get_report(report_id)
+    elif user_type == "RACINGS_TEAM":
+        report = RacingTeam.get_report(report_id + 2)
+    elif user_type == "DRIVER":
+        report = Driver.get_report(report_id + 4)
+    else:
+        return redirect("/overview")
 
-    match user_object["type"]:
-        case "ADMIN":
-            cursor.execute(switcher.get("admin_report1"))
-            report = cursor.fetchall()
-        case "DRIVER":
-            # TODO: Add driver report
-            report = None
-        case "RACING_TEAM":
-            # TODO: Add racing team report
-            report = None
-
-    return render_template("./reports/report1.html.jinja", user=user_object, report=report)
+    return render_template(
+        f"./reports/report{report_id}.html.jinja", user=user_object, report=report
+    )
 
 
 @app.context_processor

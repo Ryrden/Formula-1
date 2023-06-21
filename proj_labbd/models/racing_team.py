@@ -1,4 +1,6 @@
 from ..services.racing_team_service import RacingTeamService
+from ..services.report_service import ReportService
+
 
 class RacingTeam:
     @staticmethod
@@ -16,3 +18,7 @@ class RacingTeam:
     @staticmethod
     def get_first_and_last_ocurrences(racing_team_name):
         return RacingTeamService.get_first_and_last_ocurrences(racing_team_name)
+
+    @staticmethod
+    def get_report(id):
+        return ReportService.get_report(id)

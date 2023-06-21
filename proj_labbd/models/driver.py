@@ -1,4 +1,6 @@
 from ..services.driver_service import DriverService
+from ..services.report_service import ReportService
+
 
 class Driver:
     @staticmethod
@@ -12,3 +14,7 @@ class Driver:
     @staticmethod
     def get_first_and_last_ocurrences(driver_id):
         return DriverService.get_first_and_last_ocurrences(driver_id)
+
+    @staticmethod
+    def get_report(id):
+        return ReportService.get_report(id)

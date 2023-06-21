@@ -1,0 +1,34 @@
+{% extends "base.html.jinja" %}
+{% block content %}
+<article>
+    <form action="/report/{{ city }}" method="POST">
+        <input name="city" placeholder="Boa Viagem" value="{{ city }}" required>
+        <button type="submit">Find</button>
+    </form>
+    <figure>
+        {% if report == None %}
+        <p>Nenhum resultado encontrado</p>
+        {% else %}
+        <table>
+            <tr>
+                <th><strong>Cidade</strong></th>
+                <th><strong>IATA</strong></th>
+                <th><strong>Cidade do Aeroporto</strong></th>
+                <th><strong>Distância</strong></th>
+                <th><strong>Tipo do Aeroporto</strong></th>
+            </tr>
+            {% for row in report %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </figure>
+</article>
+{% endblock %}

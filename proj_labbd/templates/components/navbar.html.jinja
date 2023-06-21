@@ -7,10 +7,14 @@
     {% if get_username() != None %}
     <ul>
         <li>
-            {% if request.path != '/reports' %}
-            <a href="/reports" class="reports" role="button">
+            {% if request.path != '/report/*' %}
+            <a href="/report/1" class="reports" role="button">
                 <i class="fa-solid fa-file fa-lg"></i>
-                Reports
+                Report 1
+            </a>
+            <a href="/report/2" class="reports" role="button">
+                <i class="fa-solid fa-file fa-lg"></i>
+                Report 2
             </a>
             {% else %}
             <a href="/overview" class="reports" role="button">
