@@ -6,7 +6,7 @@
 
     {% if get_username() != None %}
     <ul>
-        {# <li>
+        <li>
             {% if request.path != '/reports' %}
             <a href="/reports" class="reports" role="button">
                 <i class="fa-solid fa-file fa-lg"></i>
@@ -18,7 +18,7 @@
                 Back
             </a>
             {% endif %}
-        </li> #}
+        </li>
         <li>
             <span>{{ get_username() }}</span>
         </li>
@@ -26,11 +26,10 @@
             <details role="list" dir="rtl">
                 <summary aria-haspopup="listbox" role="link"> <i class="fa-solid fa-user fa-lg"></i> </summary>
                 <ul role="listbox">
-                    <li><a onclick="logout()">Logout</a></li>
+                    <li><a onclick="window.location.href = '/';">Logout</a></li>
                 </ul>
             </details>
         </li>
     </ul>
     {% endif %}
 </nav>
-<script src="../../static/javascript/navbar.js"></script>
