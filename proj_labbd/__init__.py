@@ -26,6 +26,8 @@ def load_user(user_id):
 
 @app.route("/")
 def login():
+    session.clear()
+
     return render_template("index.html.jinja", action="valid_credentials")
 
 
