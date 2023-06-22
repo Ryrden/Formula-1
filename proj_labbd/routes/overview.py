@@ -1,16 +1,12 @@
 # Import of Flask and Flask Session
-from flask import Flask, request, redirect, session, render_template
-from flask_login import LoginManager, login_required
-from flask_session import Session
-from flask import Blueprint
+from flask import session, render_template, Blueprint
+from flask_login import login_required
 
 # Import Models
-from .interactor.user import User
-from .interactor.admin import Admin
-from .interactor.driver import Driver
-from .interactor.racing_team import RacingTeam
-
-from . import database
+from ..interactor.user import User
+from ..interactor.admin import Admin
+from ..interactor.driver import Driver
+from ..interactor.racing_team import RacingTeam
 
 overview_bp = Blueprint("overview", __name__)
 
@@ -41,13 +37,13 @@ def _get_actions_admin():
         "operation": "register",
         "fields": [
             {
-                "name": "ConstructorId",
+                "name": "Constructor Id",
                 "type": "number",
                 "placeholder": "Racing Team Identifier",
                 "required": True
             },
             {
-                "name": "ConsctructorRef",
+                "name": "Constructor Ref",
                 "type": "text",
                 "placeholder": "Racing Team Reference",
                 "required": True
@@ -71,7 +67,7 @@ def _get_actions_admin():
                 "required": True
             }
         ],
-        "action": "register_racing_team"
+        "action": "register/racing-team"
     }
 
     register_driver = {
@@ -135,7 +131,7 @@ def _get_actions_admin():
                 "required": True
             }
         ],
-        "action": "register_driver"
+        "action": "register/driver"
     }
 
     return [
@@ -157,7 +153,7 @@ def _get_actions_racing_team():
                 "required": True
             }
         ],
-        "action": "fetch_driver"
+        "action": "fetch/driver"
     }
 
     return [

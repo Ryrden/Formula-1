@@ -1,4 +1,3 @@
-from ..database import DatabaseConnection as database
 from .base_service import with_db_connection
 
 class RaceService:
@@ -15,10 +14,8 @@ class RaceService:
         }
 
     @staticmethod
-    def get_racer_by_id(race_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_racer_by_id(cursor, race_id):
         query = ("SELECT R.raceid, R.year, R.round, R.circuitid, R.name, R.date, R.time FROM Races R WHERE R.raceid = %s;")
         params = (race_id,)
 
@@ -31,10 +28,8 @@ class RaceService:
         return RaceService._get_dto_race(*row)
 
     @staticmethod
-    def get_all_races():
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_all_races(cursor):
         query = ("SELECT R.raceid, R.year, R.round, R.circuitid, R.name, R.date, R.time FROM Races R;")
 
         cursor.execute(query)
@@ -49,10 +44,8 @@ class RaceService:
         return races
 
     @staticmethod
-    def get_amount_races():
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_amount_races(cursor):
         query = ("SELECT COUNT(R.raceid) FROM Races R;")
 
         cursor.execute(query)

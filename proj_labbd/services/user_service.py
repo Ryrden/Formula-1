@@ -1,5 +1,5 @@
-from ..database import DatabaseConnection as database
 from .base_service import with_db_connection
+from .base_service import with_transaction_db_connection
 
 class UserService:
     @staticmethod
@@ -13,10 +13,8 @@ class UserService:
         }
 
     @staticmethod
-    def login(username, password):
-        db_connection = database()
-        cursor = db_connection.cursor()
-        
+    @with_db_connection
+    def login(cursor, username, password):
         query = ("SELECT U.userid, U.login, U.type, U.source_id FROM Users U WHERE login = %s AND password = md5(%s)")
         params = (username, password)
 
@@ -31,21 +29,16 @@ class UserService:
         return UserService._get_dto_user(*row)
 
     @staticmethod
-    def register_log(user_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_transaction_db_connection
+    def register_log(cursor, user_id):
         query = ("INSERT INTO log_table (userid) VALUES (%s)")
         params = (user_id,)
 
         cursor.execute(query, params)
-        db_connection.commit()
 
     @staticmethod
-    def get_user_by_id(user_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_user_by_id(cursor, user_id):
         query = ("SELECT U.userid, U.login, U.type, U.source_id FROM Users U WHERE U.userid = %s")
         params = (user_id,)
 
@@ -58,10 +51,8 @@ class UserService:
         return UserService._get_dto_user(*row)
 
     @staticmethod
-    def get_name(user_type, source_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_name(cursor, user_type, source_id):
         params = (str(source_id),)
 
         match user_type:
@@ -81,10 +72,8 @@ class UserService:
         return name
 
     @staticmethod
-    def get_all_users():
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_all_users(cursor):
         query = ("SELECT U.userid, U.login, U.type, U.source_id FROM Users;")
 
         cursor.execute(query)

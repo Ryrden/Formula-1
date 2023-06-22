@@ -5,6 +5,7 @@
 @import "components/card.css";
 @import "components/navbar.css";
 @import "components/footer.css";
+@import "components/modal.css";
 
 /* Pages */
 @import "pages/index.css";

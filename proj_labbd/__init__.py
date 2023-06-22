@@ -4,7 +4,8 @@ from flask_login import LoginManager, login_required
 from flask_session import Session
 
 # Imports of Routes Files
-from .overview import overview_bp
+from .routes.overview import overview_bp
+from .routes.report import report_bp
 
 # Import Models
 from .interactor.user import User
@@ -14,6 +15,7 @@ from .interactor.driver import Driver
 
 app = Flask(__name__)
 app.register_blueprint(overview_bp)
+app.register_blueprint(report_bp)
 
 # Session Config
 app.config["SESSION_PERMANENT"] = False
@@ -47,80 +49,38 @@ def login_post():
 
     return redirect("/overview")
 
+@app.route("/register/driver", methods=["POST"])
+def register_driver():
+    driver_id = request.form["driver_id"]
+    driver_ref = request.form["driver_ref"]
+    number = request.form["number"]
+    code = request.form["code"]
+    forename = request.form["forename"]
+    surname = request.form["surname"]
+    dob = request.form["dob"]
+    nationality = request.form["nationality"]
+    url = request.form["url"]
 
-@app.route("/report/<int:report_id>", methods=["GET"])
+    Admin.insert_driver(driver_id, driver_ref, number, code, forename, surname, dob, nationality, url)
+
+    return redirect("/overview")
+
+@app.route("/register/racing-team", methods=["POST"])
+def register_racing_team():
+    constructor_id = request.form["constructor_id"]
+    constructor_ref = request.form["constructor_ref"]
+    name = request.form["name"]
+    nationality = request.form["nationality"]
+    url = request.form["url"]
+
+    Admin.insert_racing_team(constructor_id, constructor_ref, name, nationality, url)
+
+    return redirect("/overview")
+
+@app.route("/fetch/driver", methods=["GET"])
 @login_required
-def reports_get(report_id):
-    MAX_NUMBER_OF_REPORTS = 6
-    RANGE_OF_REPORTS = range(1, MAX_NUMBER_OF_REPORTS + 1)
-    if report_id not in RANGE_OF_REPORTS:
-        return redirect("/overview")
-    
-    REPORT_ID_WITHOUT_INPUT = 1
-
-    if report_id is REPORT_ID_WITHOUT_INPUT:
-        report = {
-            "id": 1,
-            "title": "Report 1",
-            "has_input": False,
-            "description": "Number of results, by status",
-            "headers": ["Status", "Count"],
-            "rows": Admin.get_report(report_id)
-        }
-    else:
-        report = {
-            "id": 2,
-            "title": "Report 2",
-            "has_input": True,
-            "input": {
-                "label": "City",
-                "placeholder": "Enter a city name",
-                "type": "text",
-                "name": "city",
-            },
-            "description": "Brazilian airports within a 100km radius distance from the given city",
-            "headers": ["City", "IATA", "Airport Name", "Distance", "Airport Type"],
-            "rows": None
-        }
-    return render_template(f"./report.html.jinja", report=report)
-
-
-# Essa lógica ta uma Bosta e só funciona pro Report 1 do ADMIN,
-# algumas reports tem input, n sei como faremos (acho q o melhor é um template pra cada report)
-@app.route("/report/<int:report_id>", methods=["POST"])
-@login_required
-def reports(report_id):
-    user_object = session["user_object"]
-    user_type = user_object["type"]
-
-    value = request.form["value"]
-
-    report = None
-    if user_type == "ADMIN":
-        report = {
-            "id": 2,
-            "title": "Report 2",
-            "has_input": True,
-            "input": {
-                "label": "City",
-                "placeholder": "Enter a city name",
-                "type": "text",
-                "name": "city",
-            },
-            "description": "Brazilian airports within a 100km radius distance from the given city",
-            "headers": ["City", "IATA", "Airport Name", "Distance", "Airport Type"],
-            "rows": Admin.get_report(report_id, value)
-        }
-    elif user_type == "RACINGS_TEAM":
-        report = RacingTeam.get_report(report_id + 2)
-    elif user_type == "DRIVER":
-        report = Driver.get_report(report_id + 4)
-    else:
-        return redirect("/overview")
-
-    return render_template(
-        f"./report.html.jinja", report=report
-    )
+def fetch_driver():
+    pass
 
 
 @app.context_processor

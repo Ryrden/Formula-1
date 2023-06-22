@@ -1,5 +1,6 @@
 from ..database import DatabaseConnection as database
 from .base_service import with_db_connection
+from .base_service import with_transaction_db_connection
 
 class RacingTeamService:
     @staticmethod
@@ -12,10 +13,8 @@ class RacingTeamService:
         }
 
     @staticmethod
-    def get_racing_team_by_id(constructor_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_racing_team_by_id(cursor, constructor_id):
         query = ("SELECT C.constructorid, C.constructorref, C.name, C.nationality FROM Constructors C WHERE C.constructorid = %s;")
         params = (constructor_id,)
 
@@ -28,10 +27,8 @@ class RacingTeamService:
         return RacingTeamService._get_dto_racing_team(*row)
 
     @staticmethod
-    def get_all_racing_teams():
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_all_racing_teams(cursor):
         query = ("SELECT C.constructorid, C.constructorref, C.name, C.nationality FROM Constructors C;")
 
         cursor.execute(query)
@@ -47,10 +44,8 @@ class RacingTeamService:
 
 
     @staticmethod
-    def get_amount_racing_team():
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_amount_racing_team(cursor):
         query = ("SELECT COUNT(C.constructorid) FROM Constructors C;")
 
         cursor.execute(query)
@@ -62,10 +57,8 @@ class RacingTeamService:
         return row[0]
 
     @staticmethod
-    def get_amount_wins(constructor_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_amount_wins(cursor, constructor_id):
         query = ("SELECT COUNT(R.resultid) FROM Results R WHERE R.constructorid = %s AND R.position = 1;")
         params = (constructor_id,)
 
@@ -78,10 +71,8 @@ class RacingTeamService:
         return row[0]
 
     @staticmethod
-    def get_diff_drivers(constructor_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_diff_drivers(cursor, constructor_id):
         query = ("SELECT COUNT(DISTINCT R.driverid) FROM Results R WHERE R.constructorid = %s;")
         params = (constructor_id,)
 
@@ -94,10 +85,8 @@ class RacingTeamService:
         return row[0]
 
     @staticmethod
-    def get_first_and_last_ocurrences(constructor_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_first_and_last_ocurrences(cursor, constructor_id):
         query = ("SELECT MIN(RA.year) AS oldest, MAX(RA.year) AS latest FROM Results RE JOIN Races RA ON RE.raceid = RA.raceid WHERE RE.constructorid = %s;")
         params = (constructor_id,)
 
@@ -117,16 +106,9 @@ class RacingTeamService:
         return ocurrences_data
 
     @staticmethod
-    def insert_racing_team(constructorref, name, nationality, url):
-        db_connection = database()
-        cursor = db_connection.cursor()
-        
+    @with_transaction_db_connection
+    def insert_racing_team(cursor, constructorref, name, nationality, url):
         query = ("INSERT INTO constructors (constructorref, name, nationality, url) VALUES (%s, %s, %s, %s);")
         params = (constructorref, name, nationality, url)
 
         cursor.execute(query, params)
-
-        db_connection.commit()
-
-        cursor.close()
-        db_connection.close()

@@ -17,11 +17,19 @@ span {
 
 i {
     margin-top: 0.6rem;
+    margin-left: 0.5rem;
 }
 
-.main-btn {
+.primary-btn {
+    background-color: var(--tertiary);
+}
+
+.secondary-btn {
+    background-color: #484848;
+}
+
+.button {
     margin-right: 1rem;
     font-weight: bold;
-    background-color: var(--primary);
     color: var(--white);
 }

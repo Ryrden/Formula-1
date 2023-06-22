@@ -22,4 +22,5 @@ class DatabaseConnection:
                 password=env["DB_PASSWORD"] or "postgres",
                 database=env["DB_DATABASE"] or "postgres",
             )
+            cls._instance.autocommit = False
         return cls._instance

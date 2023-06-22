@@ -1,15 +1,15 @@
 <section>
-    <dialog id="modal{{id}}">
-        <article>
-            <a href="#close" aria-label="Close" class="close" data-target="modal"
-                onclick="toggleModal('modal', {{ id }})"></a>
-            <h3> {{ title }} </h3>
+    <dialog id="modal{{window.id}}">
+        <article class="modal">
+            <a href="#close" aria-label="Close" class="close" data-target="modal{{window.id}}"
+                onclick="toggleModal(event)"></a>
+            <h3> {{ window.title }} </h3>
             <p>
-                {{ description }}
+                {{ window.description }}
             </p>
 
-            <form action="" method="post">
-                {% for field in fields %}
+            <form action="{{ window.action }}" method="POST">
+                {% for field in window.fields %}
 
                 <div class="input">
                     <label for="{{ field.name }}">{{ field.label }}</label>

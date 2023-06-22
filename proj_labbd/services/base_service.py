@@ -1,14 +1,14 @@
 from ..database import DatabaseConnection
 from functools import wraps
 
-def with_db_connection(func):
+def with_transaction_db_connection(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         db_connection = DatabaseConnection()
         cursor = db_connection.cursor()
 
         try:
-            result = func(*args, **kwargs)
+            result = func(cursor, *args, **kwargs)
             db_connection.commit()
             return result
         except Exception as e:
@@ -16,7 +16,23 @@ def with_db_connection(func):
             raise e
         finally:
             cursor.close()
-            db_connection.close()
+
+    return wrapper
+
+
+def with_db_connection(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        db_connection = DatabaseConnection()
+        cursor = db_connection.cursor()
+
+        try:
+            result = func(cursor, *args, **kwargs)
+            return result
+        except Exception as e:
+            raise e
+        finally:
+            cursor.close()
 
     return wrapper
 

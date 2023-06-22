@@ -1,5 +1,6 @@
 from ..database import DatabaseConnection as database
 from .base_service import with_db_connection
+from .base_service import with_transaction_db_connection
 
 class DriverService:
     @staticmethod
@@ -13,10 +14,8 @@ class DriverService:
         }
 
     @staticmethod
-    def get_driver_by_id(driver_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_driver_by_id(cursor, driver_id):
         query = ("SELECT D.driverid, D.driverref, D.code, CONCAT(D.forename, ' ', D.surname) AS name, D.nationality FROM Driver D WHERE D.driverid = %s")
         params = (driver_id,)
 
@@ -29,10 +28,8 @@ class DriverService:
         return DriverService._get_dto_driver(*row)
 
     @staticmethod
-    def get_related_drivers_by_forename(forename, constructorid):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_related_drivers_by_forename(cursor, forename, constructorid):
         query = """
         SELECT D.driverid, D.driverref, D.code, CONCAT(D.forename, ' ', D.surname) AS name, D.nationality FROM Driver D
         WHERE D.forename = %s
@@ -56,10 +53,8 @@ class DriverService:
         return drivers
 
     @staticmethod
-    def get_all_drivers():
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_all_drivers(cursor):
         query = ("SELECT D.driverid, D.driverref, D.code, CONCAT(D.forename, ' ', D.surname) AS name, D.nationality FROM Driver D;")
 
         cursor.execute(query)
@@ -74,10 +69,8 @@ class DriverService:
         return drivers
 
     @staticmethod
-    def get_amount_drivers():
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_amount_drivers(cursor):
         query = ("SELECT COUNT(D.driverid) FROM Driver D;")
 
         cursor.execute(query)
@@ -89,10 +82,8 @@ class DriverService:
         return row[0]
 
     @staticmethod
-    def get_amount_wins(driver_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_amount_wins(cursor, driver_id):
         query = ("SELECT COUNT(R.driverid) FROM Results R WHERE R.driverid = %s AND R.position = 1")
         params = (driver_id,)
 
@@ -105,10 +96,8 @@ class DriverService:
         return row[0]
 
     @staticmethod
-    def get_first_and_last_ocurrences(driver_id):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_db_connection
+    def get_first_and_last_ocurrences(cursor, driver_id):
         query = ("SELECT MIN(RA.year) AS oldest, MAX(RA.year) AS latest FROM Results RE JOIN Races RA ON RE.raceid = RA.raceid WHERE RE.driverid = %s;")
         params = (driver_id,)
 
@@ -129,10 +118,8 @@ class DriverService:
     
 
     @staticmethod
-    def insert_driver(driverref, number, code, forename, surname, dob, nationality):
-        db_connection = database()
-        cursor = db_connection.cursor()
-
+    @with_transaction_db_connection
+    def insert_driver(cursor, driverref, number, code, forename, surname, dob, nationality):
         query = """
             INSERT INTO driver (driverref, number, code, forename, surname, dob, nationality, url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
@@ -140,8 +127,3 @@ class DriverService:
         params = (driverref, number, code, forename, surname, dob, nationality, "")
 
         cursor.execute(query, params)
-
-        db_connection.commit()
-
-        cursor.close()
-        db_connection.close()

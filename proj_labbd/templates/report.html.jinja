@@ -17,7 +17,7 @@
     </header>
     <figure>
         {% if report.rows == None %}
-        <p>Nenhum resultado encontrado</p>
+        <p>Not content</p>
         {% else %}
         {% with headers=report.headers, rows=report.rows %}
         {% include "components/report_table.html.jinja" %}
