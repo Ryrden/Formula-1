@@ -1,4 +1,3 @@
-from ..database import DatabaseConnection as database
 from .base_service import with_db_connection
 from .base_service import with_transaction_db_connection
 
@@ -44,13 +43,7 @@ class DriverService:
         cursor.execute(query, params)
         rows = cursor.fetchall()
 
-        drivers = []
-
-        for row in rows:
-            driver = DriverService._get_dto_driver(*row)
-            drivers.append(driver)
-
-        return drivers
+        return rows
 
     @staticmethod
     @with_db_connection
@@ -119,11 +112,11 @@ class DriverService:
 
     @staticmethod
     @with_transaction_db_connection
-    def insert_driver(cursor, driverref, number, code, forename, surname, dob, nationality):
+    def insert_driver(cursor, driverid, driverref, number, code, forename, surname, dob, nationality, url):
         query = """
-            INSERT INTO driver (driverref, number, code, forename, surname, dob, nationality, url)
+            INSERT INTO driver (driverid, driverref, number, code, forename, surname, dob, nationality, url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
             """
-        params = (driverref, number, code, forename, surname, dob, nationality, "")
+        params = (driverid, driverref, number, code, forename, surname, dob, nationality, url)
 
         cursor.execute(query, params)

@@ -1,12 +1,19 @@
 <nav id="navbar" class="container-fluid">
     <div>
-        <a href="/overview"><strong>SCC0541 - Laboratório de Bases de
-                Dados</strong></a>
+    {% if request.path == "/" %}
+        <a href="/">
+    {% else %}
+        <a href="/overview">
+    {% endif %}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png" id="logo-id"/>
+            <strong>Laboratório de Bases de Dados</strong>
+        </a>
     </div>
 
     {% if get_username() != None %}
     <ul>
-        {% if actions %}
+        {{ request.path }}
+        {% if actions or request.path == "/fetch/driver" %}
         {% for action in actions %}
         {% with window=action%}
         {% include "components/modal.html.jinja" %}

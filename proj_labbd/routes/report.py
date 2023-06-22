@@ -10,6 +10,7 @@ report_bp = Blueprint('report', __name__)
 @report_bp.route("/report/<int:report_id>", methods=["GET", "POST"])
 @login_required
 def reports_get(report_id):
+    '''Returns the report page for the given report_id.'''
     user_object = session["user_object"]
     source_id = int(user_object["source_id"])
     
@@ -31,7 +32,7 @@ def reports_get(report_id):
         elif user_object["type"] == "RACING_TEAM":
             pass
         
-    return render_template(f"./report.html.jinja", report=report)
+    return render_template("./report.html.jinja", report=report)
 
 
 def _get_report_admin():

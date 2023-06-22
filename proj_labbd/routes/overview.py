@@ -13,6 +13,7 @@ overview_bp = Blueprint("overview", __name__)
 @overview_bp.route("/overview")
 @login_required
 def overview():
+    '''Render the Overview Page with the Overview Cards and Actions for the User'''
     user_object = session["user_object"]
 
     if user_object["type"] == "DRIVER":
@@ -37,34 +38,39 @@ def _get_actions_admin():
         "operation": "register",
         "fields": [
             {
-                "name": "Constructor Id",
+                "name": "constructor_id",
+                "label": "Constructor Id",
                 "type": "number",
                 "placeholder": "Racing Team Identifier",
-                "required": True
+                "required": "required"
             },
             {
-                "name": "Constructor Ref",
+                "name": "constructor_ref",
+                "label": "Constructor Ref",
                 "type": "text",
                 "placeholder": "Racing Team Reference",
-                "required": True
+                "required": "required"
             },
             {
-                "name": "Constructor Name",
+                "name": "name",
+                "label": "Constructor Name",
                 "type": "text",
                 "placeholder": "Racing Team Name",
-                "required": True
+                "required": "required"
             },
             {
-                "name": "Constructor Nationality",
+                "name": "nationality",
+                "label": "Constructor Nationality",
                 "type": "text",
                 "placeholder": "Racing Team Nationality",
-                "required": True
+                "required": "required"
             },
             {
-                "name": "Constructor Url",
+                "name": "url",
+                "label": "Constructor Url",
                 "type": "text",
                 "placeholder": "Racing Team Website",
-                "required": True
+                "required": ""
             }
         ],
         "action": "register/racing-team"
@@ -77,58 +83,67 @@ def _get_actions_admin():
         "operation": "register",
         "fields": [
             {
-                "name": "DriverId",
+                "name": "driver_id",
+                "label": "DriverId",
                 "type": "number",
                 "placeholder": "Driver ID",
-                "required": True
+                "required": "required"
             },
             {
-                "name": "DriverRef",
+                "name": "driver_ref",
+                "label": "DriverRef",
                 "type": "text",
                 "placeholder": "Driver Reference",
-                "required": True
+                "required": "required"
             },
             {
-                "name": "DriverNumber",
+                "name": "number",
+                "label": "DriverNumber",
                 "type": "number",
                 "placeholder": "Driver Number",
-                "required": False
+                "required": ""
             },
             {
-                "name": "Code",
+                "name": "code",
+                "label": "Code",
                 "type": "text",
                 "placeholder": "Driver Code",
-                "required": False
+                "required": ""
             },
             {
-                "name": "Forename",
+                "name": "forename",
+                "label": "Forename",
                 "type": "text",
                 "placeholder": "Driver Forename",
-                "required": True
+                "required": "required"
             },
             {
-                "name": "Surname",
+                "name": "surname",
+                "label": "Surname",
                 "type": "text",
                 "placeholder": "Driver Surname",
-                "required": True
+                "required": "required"
             },
             {
                 "name": "dob",
+                "label": "dob",
                 "type": "date",
                 "placeholder": "Driver Date of Birth",
-                "required": True
+                "required": "required"
             },
             {
                 "name": "nationality",
+                "label": "nationality",
                 "type": "text",
                 "placeholder": "Driver Nationality",
-                "required": True
+                "required": "required"
             },
             {
                 "name": "url",
+                "label": "url",
                 "type": "text",
                 "placeholder": "Driver URL",
-                "required": True
+                "required": ""
             }
         ],
         "action": "register/driver"
@@ -147,10 +162,11 @@ def _get_actions_racing_team():
         "operation": "fetch",
         "fields": [
             {
-                "name": "DriverName",
+                "name": "driver_name",
+                "label": "Driver Name",
                 "type": "text",
                 "placeholder": "Driver Name",
-                "required": True
+                "required": "required"
             }
         ],
         "action": "fetch/driver"

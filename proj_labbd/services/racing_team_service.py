@@ -1,4 +1,3 @@
-from ..database import DatabaseConnection as database
 from .base_service import with_db_connection
 from .base_service import with_transaction_db_connection
 
@@ -107,8 +106,8 @@ class RacingTeamService:
 
     @staticmethod
     @with_transaction_db_connection
-    def insert_racing_team(cursor, constructorref, name, nationality, url):
-        query = ("INSERT INTO constructors (constructorref, name, nationality, url) VALUES (%s, %s, %s, %s);")
-        params = (constructorref, name, nationality, url)
+    def insert_racing_team(cursor, constructorid, constructorref, name, nationality, url):
+        query = ("INSERT INTO constructors (constructorid, constructorref, name, nationality, url) VALUES (%s, %s, %s, %s, %s);")
+        params = (constructorid, constructorref, name, nationality, url)
 
         cursor.execute(query, params)
