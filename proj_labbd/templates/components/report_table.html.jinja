@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        {% for header in headers %}
+        <th><strong>{{ header }}</strong></th>
+        {% endfor %}
+    </tr>
+    {% if rows %}
+        {% for row in rows %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    {% endif%}
+</table>

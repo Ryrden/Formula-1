@@ -1,0 +1,30 @@
+{% extends "base.html.jinja" %}
+{% block content %}
+<article>
+    <header>
+        <h1>{{ report.title }}</h1>
+        <p>{{ report.description }}</p>
+        {% if report.has_input %}
+        <form action="/report/{{ report.id }}" method="POST">
+            <label>
+                <span>{{ report.input.label }}</span>
+                <input type="{{ report.input.type }}" name="value" placeholder="{{ report.input.placeholder }}" value="{{ value }}" />
+            </label>
+            <div>
+                <input type="submit" value="Execute" />
+            </div>
+        {% endif %}
+    </header>
+    <figure>
+        {% if report.rows == None %}
+        <p>Nenhum resultado encontrado</p>
+        {% else %}
+        {% with headers=report.headers, rows=report.rows %}
+        {% include "components/report_table.html.jinja" %}
+        {% endwith %}
+        {% endif %}
+    </figure>
+    {# TODO: Criar botão voltar ao topo #}
+</article>
+
+{% endblock %}

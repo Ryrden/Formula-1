@@ -20,5 +20,9 @@ class RacingTeam:
         return RacingTeamService.get_first_and_last_ocurrences(racing_team_name)
 
     @staticmethod
+    def insert_racing_team(constructorref, name, nationality, url):
+        return RacingTeamService.insert_racing_team(constructorref, name, nationality, url)
+        
+    @staticmethod
     def get_report(id):
         return ReportService.get_report(id)

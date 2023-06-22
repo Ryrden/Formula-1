@@ -5,10 +5,10 @@ from flask_session import Session
 from flask import Blueprint
 
 # Import Models
-from .models.user import User
-from .models.admin import Admin
-from .models.driver import Driver
-from .models.racing_team import RacingTeam
+from .interactor.user import User
+from .interactor.admin import Admin
+from .interactor.driver import Driver
+from .interactor.racing_team import RacingTeam
 
 from . import database
 
@@ -21,14 +21,149 @@ def overview():
 
     if user_object["type"] == "DRIVER":
         overview_cards = _get_overview_driver(session["user_object"]["source_id"])
+        actions = []
 
     elif user_object["type"] == "RACING_TEAM":
         overview_cards = _get_overview_racing_team(session["user_object"]["source_id"])
+        actions = _get_actions_racing_team()
 
     elif user_object["type"] == "ADMIN":
         overview_cards = _get_overview_admin()
+        actions = _get_actions_admin()
 
-    return render_template("overview.html.jinja", user=user_object, overview_cards=overview_cards)
+    return render_template("overview.html.jinja", user=user_object, overview_cards=overview_cards, actions=actions)
+
+def _get_actions_admin():
+    register_racing_team = {
+        "id": 0,
+        "title": "Register Racing Team",
+        "description": "Register a new Racing Team in the Database",
+        "operation": "register",
+        "fields": [
+            {
+                "name": "ConstructorId",
+                "type": "number",
+                "placeholder": "Racing Team Identifier",
+                "required": True
+            },
+            {
+                "name": "ConsctructorRef",
+                "type": "text",
+                "placeholder": "Racing Team Reference",
+                "required": True
+            },
+            {
+                "name": "Constructor Name",
+                "type": "text",
+                "placeholder": "Racing Team Name",
+                "required": True
+            },
+            {
+                "name": "Constructor Nationality",
+                "type": "text",
+                "placeholder": "Racing Team Nationality",
+                "required": True
+            },
+            {
+                "name": "Constructor Url",
+                "type": "text",
+                "placeholder": "Racing Team Website",
+                "required": True
+            }
+        ],
+        "action": "register_racing_team"
+    }
+
+    register_driver = {
+        "id": 1,
+        "title": "Register Driver",
+        "description": "Register a new Driver in the Database",
+        "operation": "register",
+        "fields": [
+            {
+                "name": "DriverId",
+                "type": "number",
+                "placeholder": "Driver ID",
+                "required": True
+            },
+            {
+                "name": "DriverRef",
+                "type": "text",
+                "placeholder": "Driver Reference",
+                "required": True
+            },
+            {
+                "name": "DriverNumber",
+                "type": "number",
+                "placeholder": "Driver Number",
+                "required": False
+            },
+            {
+                "name": "Code",
+                "type": "text",
+                "placeholder": "Driver Code",
+                "required": False
+            },
+            {
+                "name": "Forename",
+                "type": "text",
+                "placeholder": "Driver Forename",
+                "required": True
+            },
+            {
+                "name": "Surname",
+                "type": "text",
+                "placeholder": "Driver Surname",
+                "required": True
+            },
+            {
+                "name": "dob",
+                "type": "date",
+                "placeholder": "Driver Date of Birth",
+                "required": True
+            },
+            {
+                "name": "nationality",
+                "type": "text",
+                "placeholder": "Driver Nationality",
+                "required": True
+            },
+            {
+                "name": "url",
+                "type": "text",
+                "placeholder": "Driver URL",
+                "required": True
+            }
+        ],
+        "action": "register_driver"
+    }
+
+    return [
+        register_racing_team,
+        register_driver
+    ]
+
+def _get_actions_racing_team():
+    fetch_driver = {
+        "id": 0,
+        "title": "Fetch Driver",
+        "description": "Fetch a Driver from the Database",
+        "operation": "fetch",
+        "fields": [
+            {
+                "name": "DriverName",
+                "type": "text",
+                "placeholder": "Driver Name",
+                "required": True
+            }
+        ],
+        "action": "fetch_driver"
+    }
+
+    return [
+        fetch_driver
+    ]
+
 
 def _get_overview_admin():
     amount_drivers = {

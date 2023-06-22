@@ -23,5 +23,13 @@ class Admin:
         return SeasonService.get_amount_seasons()
 
     @staticmethod
-    def get_report(id):
-        return ReportService.get_report(id)
+    def insert_racing_team(constructorref, name, nationality, url):
+        return RacingTeamService.insert_racing_team(constructorref, name, nationality, url)
+
+    @staticmethod
+    def insert_driver(driverref, number, code, forename, surname, dob, nationality):
+        return DriverService.insert_driver(driverref, number, code, forename, surname, dob, nationality)
+
+    @staticmethod
+    def get_report(id, input = None):
+        return ReportService.get_report(id, input)

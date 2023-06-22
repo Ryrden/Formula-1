@@ -6,7 +6,7 @@
 			<h1>Sign In</h1>
 			<h2>Welcome Back to a Formula 1 Database</h2>
 		</hgroup>
-		<form action="http://localhost:5000/login" method="post">
+		<form action="/login" method="POST">
 			<input id="loginInput" type="text" name="login" placeholder="Login" aria-label="Login"
 				autocomplete="nickname" required />
 			<input id="passwordInput" type="password" name="password" placeholder="Senha" aria-label="Password"
@@ -17,7 +17,7 @@
 	<div>
 	</div>
 </article>
-{% if action == "invalid_credentials" %}
+{% if response == "invalid_credentials" %}
 {% include "components/invalid_credentials.html.jinja" %}
 {% endif %}
 {% endblock %}

@@ -1,0 +1,31 @@
+<section>
+    <dialog id="modal{{id}}">
+        <article>
+            <a href="#close" aria-label="Close" class="close" data-target="modal"
+                onclick="toggleModal('modal', {{ id }})"></a>
+            <h3> {{ title }} </h3>
+            <p>
+                {{ description }}
+            </p>
+
+            <form action="" method="post">
+                {% for field in fields %}
+
+                <div class="input">
+                    <label for="{{ field.name }}">{{ field.label }}</label>
+                    <input type="{{ field.type }}" id="{{ field.name }}" name="{{ field.name }}"
+                        placeholder="{{ field.placeholder }}" required="{{ field.required }}">
+                </div>
+
+                {% endfor %}
+
+                <footer>
+                    <button type="submit" class="contrast">Register</button>
+                </footer>
+
+            </form>
+        </article>
+    </dialog>
+</section>
+
+<script src="../../static/javascript/modal.js"></script>

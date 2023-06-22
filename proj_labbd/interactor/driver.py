@@ -16,5 +16,9 @@ class Driver:
         return DriverService.get_first_and_last_ocurrences(driver_id)
 
     @staticmethod
+    def get_drivers_by_forename(forename):
+        return DriverService.get_drivers_by_forename(forename)
+
+    @staticmethod
     def get_report(id):
         return ReportService.get_report(id)

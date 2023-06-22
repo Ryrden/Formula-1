@@ -7,10 +7,10 @@ from flask_session import Session
 from .overview import overview_bp
 
 # Import Models
-from .models.user import User
-from .models.admin import Admin
-from .models.racing_team import RacingTeam
-from .models.driver import Driver
+from .interactor.user import User
+from .interactor.admin import Admin
+from .interactor.racing_team import RacingTeam
+from .interactor.driver import Driver
 
 app = Flask(__name__)
 app.register_blueprint(overview_bp)
@@ -25,13 +25,12 @@ login_manager = LoginManager(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
-
+    
 
 @app.route("/")
 def login():
     session.clear()
-
-    return render_template("index.html.jinja", action="valid_credentials")
+    return render_template("index.html.jinja", response="valid_credentials")
 
 
 @app.route("/login", methods=["POST"])
@@ -42,7 +41,7 @@ def login_post():
     user = User.authenticate(username, password)
 
     if user is None:
-        return render_template("index.html.jinja", action="invalid_credentials")
+        return render_template("index.html.jinja", response="invalid_credentials")
 
     session["user_object"] = user
 
@@ -52,27 +51,66 @@ def login_post():
 @app.route("/report/<int:report_id>", methods=["GET"])
 @login_required
 def reports_get(report_id):
-    return render_template(
-        f"./reports/report{report_id}.html.jinja", user=session["user_object"]
-    )
+    MAX_NUMBER_OF_REPORTS = 6
+    RANGE_OF_REPORTS = range(1, MAX_NUMBER_OF_REPORTS + 1)
+    if report_id not in RANGE_OF_REPORTS:
+        return redirect("/overview")
+    
+    REPORT_ID_WITHOUT_INPUT = 1
+
+    if report_id is REPORT_ID_WITHOUT_INPUT:
+        report = {
+            "id": 1,
+            "title": "Report 1",
+            "has_input": False,
+            "description": "Number of results, by status",
+            "headers": ["Status", "Count"],
+            "rows": Admin.get_report(report_id)
+        }
+    else:
+        report = {
+            "id": 2,
+            "title": "Report 2",
+            "has_input": True,
+            "input": {
+                "label": "City",
+                "placeholder": "Enter a city name",
+                "type": "text",
+                "name": "city",
+            },
+            "description": "Brazilian airports within a 100km radius distance from the given city",
+            "headers": ["City", "IATA", "Airport Name", "Distance", "Airport Type"],
+            "rows": None
+        }
+    return render_template(f"./report.html.jinja", report=report)
 
 
 # Essa lógica ta uma Bosta e só funciona pro Report 1 do ADMIN,
 # algumas reports tem input, n sei como faremos (acho q o melhor é um template pra cada report)
 @app.route("/report/<int:report_id>", methods=["POST"])
 @login_required
-def reports(report_id, params=None):
-    if report_id not in (1, 2):
-        return redirect("/overview")
-
+def reports(report_id):
     user_object = session["user_object"]
     user_type = user_object["type"]
 
-    print(user_type, report_id)
+    value = request.form["value"]
 
     report = None
     if user_type == "ADMIN":
-        report = Admin.get_report(report_id)
+        report = {
+            "id": 2,
+            "title": "Report 2",
+            "has_input": True,
+            "input": {
+                "label": "City",
+                "placeholder": "Enter a city name",
+                "type": "text",
+                "name": "city",
+            },
+            "description": "Brazilian airports within a 100km radius distance from the given city",
+            "headers": ["City", "IATA", "Airport Name", "Distance", "Airport Type"],
+            "rows": Admin.get_report(report_id, value)
+        }
     elif user_type == "RACINGS_TEAM":
         report = RacingTeam.get_report(report_id + 2)
     elif user_type == "DRIVER":
@@ -81,7 +119,7 @@ def reports(report_id, params=None):
         return redirect("/overview")
 
     return render_template(
-        f"./reports/report{report_id}.html.jinja", user=user_object, report=report
+        f"./report.html.jinja", report=report
     )
 
 

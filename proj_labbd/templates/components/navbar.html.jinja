@@ -8,21 +8,36 @@
     <ul>
         <li>
             {% if request.path != '/report/*' %}
-            <a href="/report/1" class="reports" role="button">
+            <a href="/report/1" class="main-btn" role="button">
                 <i class="fa-solid fa-file fa-lg"></i>
                 Report 1
             </a>
-            <a href="/report/2" class="reports" role="button">
+            <a href="/report/2" class="main-btn" role="button">
                 <i class="fa-solid fa-file fa-lg"></i>
                 Report 2
             </a>
             {% else %}
-            <a href="/overview" class="reports" role="button">
+            <a href="/overview" class="main-btn" role="button">
                 <i class="fa-solid fa-arrow-left fa-lg"></i>
                 Back
             </a>
             {% endif %}
         </li>
+
+        {% if actions %}
+        {% for action in actions %}
+        {% with id=action.id, title=action.title, description=action.description, fields=action.fields%}
+        {% include "components/modal.html.jinja" %}
+        {% endwith %}
+        <li>
+            <button onclick="openAction({{action.id}})" class="main-btn" role="button">
+                <i class="fa-solid fa-user-plus"></i>
+                {{ action.title }}
+            </button>
+        </li>
+        {% endfor %}
+        {% endif%}
+
         <li>
             <span>{{ get_username() }}</span>
         </li>

@@ -5,21 +5,21 @@ const closingClass = "modal-is-closing";
 const animationDuration = 400; // ms
 let visibleModal = null;
 
-window.onload = () => {
-    toggleModal("invalid_credentials");
-};
+const openAction = (id) => {
+    toggleModal("modal"+id);
+}
 
 // Toggle modal
-const toggleModal = (event) => {
-  if (event == "invalid_credentials") {
-    openModal(document.getElementById("invalid_credentials"));
+const toggleModal = (event, id) => {
+  if (event.includes("modal")) {
+    openModal(document.getElementById(event));
     return;
   }
 
   event.preventDefault();
   const modal = document.getElementById(
     event.currentTarget.getAttribute("data-target")
-  );
+  )+id;
   typeof modal != "undefined" && modal != null && isModalOpen(modal)
     ? closeModal(modal)
     : openModal(modal);
@@ -40,6 +40,7 @@ const openModal = (modal) => {
       `${getScrollbarWidth()}px`
     );
   }
+
   document.documentElement.classList.add(isOpenClass, openingClass);
   setTimeout(() => {
     visibleModal = modal;

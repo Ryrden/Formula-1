@@ -115,3 +115,18 @@ class RacingTeamService:
         }
 
         return ocurrences_data
+
+    @staticmethod
+    def insert_racing_team(constructorref, name, nationality, url):
+        db_connection = database()
+        cursor = db_connection.cursor()
+        
+        query = ("INSERT INTO constructors (constructorref, name, nationality, url) VALUES (%s, %s, %s, %s);")
+        params = (constructorref, name, nationality, url)
+
+        cursor.execute(query, params)
+
+        db_connection.commit()
+
+        cursor.close()
+        db_connection.close()

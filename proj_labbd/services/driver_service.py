@@ -29,6 +29,33 @@ class DriverService:
         return DriverService._get_dto_driver(*row)
 
     @staticmethod
+    def get_related_drivers_by_forename(forename, constructorid):
+        db_connection = database()
+        cursor = db_connection.cursor()
+
+        query = """
+        SELECT D.driverid, D.driverref, D.code, CONCAT(D.forename, ' ', D.surname) AS name, D.nationality FROM Driver D
+        WHERE D.forename = %s
+          AND D.driverid IN (
+              SELECT driverid
+              FROM Results R
+              WHERE R.constructorid = %s
+          );
+        """
+        params = (forename, constructorid)
+
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+
+        drivers = []
+
+        for row in rows:
+            driver = DriverService._get_dto_driver(*row)
+            drivers.append(driver)
+
+        return drivers
+
+    @staticmethod
     def get_all_drivers():
         db_connection = database()
         cursor = db_connection.cursor()
@@ -100,3 +127,21 @@ class DriverService:
 
         return ocurrences_data
     
+
+    @staticmethod
+    def insert_driver(driverref, number, code, forename, surname, dob, nationality):
+        db_connection = database()
+        cursor = db_connection.cursor()
+
+        query = """
+            INSERT INTO driver (driverref, number, code, forename, surname, dob, nationality, url)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+            """
+        params = (driverref, number, code, forename, surname, dob, nationality, "")
+
+        cursor.execute(query, params)
+
+        db_connection.commit()
+
+        cursor.close()
+        db_connection.close()
