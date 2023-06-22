@@ -1,17 +1,15 @@
 from .base_service import with_db_connection
 
+
 class SeasonService:
-    @staticmethod  
+    @staticmethod
     def _get_dto_season(year, url):
-        return {
-            "year": year,
-            "url": url
-        }
+        return {"year": year, "url": url}
 
     @staticmethod
     @with_db_connection
     def get_season_by_year(cursor, year):
-        query = ("SELECT S.year, S.url FROM Seasons S WHERE S.year = %s;")
+        query = "SELECT S.year, S.url FROM Seasons S WHERE S.year = %s;"
         params = (year,)
 
         cursor.execute(query, params)
@@ -25,7 +23,7 @@ class SeasonService:
     @staticmethod
     @with_db_connection
     def get_all_seasons(cursor):
-        query = ("SELECT S.year, S.url FROM Seasons S;")
+        query = "SELECT S.year, S.url FROM Seasons S;"
 
         cursor.execute(query)
         rows = cursor.fetchall()
@@ -41,7 +39,7 @@ class SeasonService:
     @staticmethod
     @with_db_connection
     def get_amount_seasons(cursor):
-        query = ("SELECT COUNT(S.year) FROM Seasons S;")
+        query = "SELECT COUNT(S.year) FROM Seasons S;"
 
         cursor.execute(query)
         row = cursor.fetchone()

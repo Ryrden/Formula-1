@@ -1,8 +1,10 @@
 from ..database import DatabaseConnection
 from functools import wraps
 
+
 def with_transaction_db_connection(func):
-    '''Decorator to execute a function with a database connection and a transaction.'''
+    """Decorator to execute a function with a database connection and a transaction."""
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         db_connection = DatabaseConnection()
@@ -22,7 +24,8 @@ def with_transaction_db_connection(func):
 
 
 def with_db_connection(func):
-    '''Decorator to execute a function with a database connection.'''
+    """Decorator to execute a function with a database connection."""
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         db_connection = DatabaseConnection()
@@ -37,4 +40,3 @@ def with_db_connection(func):
             cursor.close()
 
     return wrapper
-

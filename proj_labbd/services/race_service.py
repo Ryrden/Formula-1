@@ -1,5 +1,6 @@
 from .base_service import with_db_connection
 
+
 class RaceService:
     @staticmethod
     def _get_dto_race(race_id, year, rownd, circuit_id, name, date, time):
@@ -10,13 +11,13 @@ class RaceService:
             "circuit_id": circuit_id,
             "name": name,
             "date": date,
-            "time": time
+            "time": time,
         }
 
     @staticmethod
     @with_db_connection
     def get_racer_by_id(cursor, race_id):
-        query = ("SELECT R.raceid, R.year, R.round, R.circuitid, R.name, R.date, R.time FROM Races R WHERE R.raceid = %s;")
+        query = "SELECT R.raceid, R.year, R.round, R.circuitid, R.name, R.date, R.time FROM Races R WHERE R.raceid = %s;"
         params = (race_id,)
 
         cursor.execute(query, params)
@@ -30,7 +31,7 @@ class RaceService:
     @staticmethod
     @with_db_connection
     def get_all_races(cursor):
-        query = ("SELECT R.raceid, R.year, R.round, R.circuitid, R.name, R.date, R.time FROM Races R;")
+        query = "SELECT R.raceid, R.year, R.round, R.circuitid, R.name, R.date, R.time FROM Races R;"
 
         cursor.execute(query)
         rows = cursor.fetchall()
@@ -46,7 +47,7 @@ class RaceService:
     @staticmethod
     @with_db_connection
     def get_amount_races(cursor):
-        query = ("SELECT COUNT(R.raceid) FROM Races R;")
+        query = "SELECT COUNT(R.raceid) FROM Races R;"
 
         cursor.execute(query)
         row = cursor.fetchone()

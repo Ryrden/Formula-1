@@ -10,10 +10,11 @@ from ..interactor.racing_team import RacingTeam
 
 overview_bp = Blueprint("overview", __name__)
 
+
 @overview_bp.route("/overview")
 @login_required
 def overview():
-    '''Render the Overview Page with the Overview Cards and Actions for the User'''
+    """Render the Overview Page with the Overview Cards and Actions for the User"""
     user_object = session["user_object"]
 
     if user_object["type"] == "DRIVER":
@@ -28,7 +29,13 @@ def overview():
         overview_cards = _get_overview_admin()
         actions = _get_actions_admin()
 
-    return render_template("overview.html.jinja", user=user_object, overview_cards=overview_cards, actions=actions)
+    return render_template(
+        "overview.html.jinja",
+        user=user_object,
+        overview_cards=overview_cards,
+        actions=actions,
+    )
+
 
 def _get_actions_admin():
     register_racing_team = {
@@ -42,38 +49,38 @@ def _get_actions_admin():
                 "label": "Constructor Id",
                 "type": "number",
                 "placeholder": "Racing Team Identifier",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "constructor_ref",
                 "label": "Constructor Ref",
                 "type": "text",
                 "placeholder": "Racing Team Reference",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "name",
                 "label": "Constructor Name",
                 "type": "text",
                 "placeholder": "Racing Team Name",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "nationality",
                 "label": "Constructor Nationality",
                 "type": "text",
                 "placeholder": "Racing Team Nationality",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "url",
                 "label": "Constructor Url",
                 "type": "text",
                 "placeholder": "Racing Team Website",
-                "required": ""
-            }
+                "required": "",
+            },
         ],
-        "action": "register/racing-team"
+        "action": "register/racing-team",
     }
 
     register_driver = {
@@ -87,72 +94,70 @@ def _get_actions_admin():
                 "label": "DriverId",
                 "type": "number",
                 "placeholder": "Driver ID",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "driver_ref",
                 "label": "DriverRef",
                 "type": "text",
                 "placeholder": "Driver Reference",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "number",
                 "label": "DriverNumber",
                 "type": "number",
                 "placeholder": "Driver Number",
-                "required": ""
+                "required": "",
             },
             {
                 "name": "code",
                 "label": "Code",
                 "type": "text",
                 "placeholder": "Driver Code",
-                "required": ""
+                "required": "",
             },
             {
                 "name": "forename",
                 "label": "Forename",
                 "type": "text",
                 "placeholder": "Driver Forename",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "surname",
                 "label": "Surname",
                 "type": "text",
                 "placeholder": "Driver Surname",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "dob",
                 "label": "dob",
                 "type": "date",
                 "placeholder": "Driver Date of Birth",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "nationality",
                 "label": "nationality",
                 "type": "text",
                 "placeholder": "Driver Nationality",
-                "required": "required"
+                "required": "required",
             },
             {
                 "name": "url",
                 "label": "url",
                 "type": "text",
                 "placeholder": "Driver URL",
-                "required": ""
-            }
+                "required": "",
+            },
         ],
-        "action": "register/driver"
+        "action": "register/driver",
     }
 
-    return [
-        register_racing_team,
-        register_driver
-    ]
+    return [register_racing_team, register_driver]
+
 
 def _get_actions_racing_team():
     fetch_driver = {
@@ -166,15 +171,13 @@ def _get_actions_racing_team():
                 "label": "Driver Name",
                 "type": "text",
                 "placeholder": "Driver Name",
-                "required": "required"
+                "required": "required",
             }
         ],
-        "action": "fetch/driver"
+        "action": "fetch/driver",
     }
 
-    return [
-        fetch_driver
-    ]
+    return [fetch_driver]
 
 
 def _get_overview_admin():
@@ -183,7 +186,7 @@ def _get_overview_admin():
         "title": "Amount of Drivers",
         "type_card": "default",
         "description": "Total Drivers registered in the Database",
-        "value": Admin.get_amount_drivers()
+        "value": Admin.get_amount_drivers(),
     }
 
     amount_racing_team = {
@@ -191,7 +194,7 @@ def _get_overview_admin():
         "title": "Amount of Racing Teams",
         "type_card": "default",
         "description": "Total Racing Teams registered in the Database",
-        "value": Admin.get_amount_racing_team()
+        "value": Admin.get_amount_racing_team(),
     }
 
     amount_races = {
@@ -199,7 +202,7 @@ def _get_overview_admin():
         "title": "Amount of Races",
         "type_card": "default",
         "description": "Total of Races registered in the Database",
-        "value": Admin.get_amount_races()
+        "value": Admin.get_amount_races(),
     }
 
     amount_seasons = {
@@ -207,15 +210,11 @@ def _get_overview_admin():
         "title": "Amount of Seasons",
         "type_card": "default",
         "description": "Total of Seasons registered in the Database",
-        "value": Admin.get_amount_seasons()
+        "value": Admin.get_amount_seasons(),
     }
 
-    return [
-        amount_drivers,
-        amount_racing_team,
-        amount_races,
-        amount_seasons
-    ]
+    return [amount_drivers, amount_racing_team, amount_races, amount_seasons]
+
 
 def _get_overview_racing_team(source_id):
     amount_wins = {
@@ -223,7 +222,7 @@ def _get_overview_racing_team(source_id):
         "title": "Amount of Wins",
         "type_card": "default",
         "description": "Total Wins of the Racing Team",
-        "value": RacingTeam.get_amount_wins(source_id)
+        "value": RacingTeam.get_amount_wins(source_id),
     }
 
     amount_different_drivers = {
@@ -231,7 +230,7 @@ def _get_overview_racing_team(source_id):
         "title": "Amount of Different Drivers",
         "type_card": "default",
         "description": "Number of different drivers who have already raced for the team;",
-        "value": RacingTeam.get_diff_drivers(source_id)
+        "value": RacingTeam.get_diff_drivers(source_id),
     }
 
     occurrence_of_existence = {
@@ -239,14 +238,10 @@ def _get_overview_racing_team(source_id):
         "title": "Occurrences",
         "type_card": "date",
         "description": "First and Last year in which there is team data in the base",
-        "value": RacingTeam.get_first_and_last_ocurrences(source_id)
+        "value": RacingTeam.get_first_and_last_ocurrences(source_id),
     }
 
-    return [
-        amount_wins,
-        amount_different_drivers,
-        occurrence_of_existence
-    ]
+    return [amount_wins, amount_different_drivers, occurrence_of_existence]
 
 
 def _get_overview_driver(source_id):
@@ -255,7 +250,7 @@ def _get_overview_driver(source_id):
         "title": "Amount of Wins",
         "type_card": "default",
         "description": "Total Wins of the Driver",
-        "value": Driver.get_amount_wins(source_id)
+        "value": Driver.get_amount_wins(source_id),
     }
 
     occurrence_of_existence = {
@@ -263,10 +258,7 @@ def _get_overview_driver(source_id):
         "title": "Occurrences",
         "type_card": "date",
         "description": "First and last year in which there is pilot data in the base",
-        "value": Driver.get_first_and_last_ocurrences(source_id)
+        "value": Driver.get_first_and_last_ocurrences(source_id),
     }
 
-    return [
-        amount_wins,
-        occurrence_of_existence
-    ]
+    return [amount_wins, occurrence_of_existence]
