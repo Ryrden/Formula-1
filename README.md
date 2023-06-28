@@ -113,34 +113,9 @@ docker compose down -v
 python -m proj_labbd
 ```
 
-## Estrutura de Pastas
+### Execute os scrips
 
-A estrutura de pastas do projeto é organizada da seguinte maneira:
-
-```text
-/
-|-- database/
-|   |-- arquivo1
-|   |-- arquivo2
-|-- proj_labbd/
-|   |-- arquivo3
-|   |-- arquivo4
-|-- ...
-```
-
-<!-- Outra forma de descrever é em texto corrido -->
-
-### Disposição e estilos
-
-* `database`: Scripts sql
-
-* `proj_labbd`: Projeto em si
-
-* `...`: Outras informações
-
-### Configurações e CI/CD
-
-* `./setup.py`: Configurações técnicas do projeto.
+Por fim, execute os scripts da pasta database para uso do sistema
 
 ## Como contribuir
 
