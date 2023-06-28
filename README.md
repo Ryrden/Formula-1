@@ -1,14 +1,14 @@
 # Formula 1 - Projeto Final
 
 <!-- Shields Exemplo, existem N diferentes shield em https://shields.io/ -->
-![GitHub last commit](https://img.shields.io/github/last-commit/seu-usuario/seu-repositorio)
-![GitHub language count](https://img.shields.io/github/languages/count/seu-usuario/seu-repositorio)
-![Github repo size](https://img.shields.io/github/repo-size/seu-usuario/seu-repositorio)
-![Github stars](https://img.shields.io/github/stars/seu-usuario/seu-repositorio?style=social)
+![GitHub last commit](https://img.shields.io/github/last-commit/ryrden/Formula-1)
+![GitHub language count](https://img.shields.io/github/languages/count/ryrden/Formula-1)
+![Github repo size](https://img.shields.io/github/repo-size/ryrden/Formula-1)
+![Github stars](https://img.shields.io/github/stars/ryrden/Formula-1?style=social)
 
-![Capa do Projeto](https://source.unsplash.com/featured/1280x720)
+![Capa do Projeto](https://i.imgur.com/g1o3I7v.png)
 
-> Descrição breve do projeto
+> Sistema de gerenciamento de dados de corridas de Fórmula 1
 
 ## Pré-requisitos
 
@@ -28,12 +28,10 @@ Siga as etapas abaixo para executar o projeto em sua máquina local:
 
 Execute os seguintes comandos a partir da pasta raiz do projeto:
 
-<!-- Aqui é tudo exemplo, só trocar -->
-
 ### Clone este repositório
 
 ```bash
-git clone <link-do-repositorio>
+git clone https://github.com/Ryrden/Formula-1.git
 ```
 
 Este link pode ser encontrado no botão verde acima `Code`.
@@ -64,7 +62,7 @@ DB_PASSWORD=
 DB_DATABASE=
 ```
 
-A partir daqui você deve conectar ao banco de dados utilizando as seguintes credenciais:
+A partir daqui você deve conectar ao banco de dados utilizando as seguintes credenciais (ou as que você definiu no arquivo .env):
 
 - **Host:** localhost
 - **Port:** 5432
@@ -161,29 +159,29 @@ Como alternativa, consulte a documentação do GitHub sobre [como criar uma soli
 <table>
   <tr>
     <td align="center">
+      <a href="https://github.com/joaolucasp">
+        <img src="https://github.com/joaolucasp.png" width="100px">
+        <br>
+        <sub>
+          <b>Joaolucasp</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/joelcoelho29">
+        <img src="https://github.com/joelcoelho29.png" width="100px">
+        <br>
+        <sub>
+          <b>Joelcoelho29</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
       <a href="https://github.com/ryrden">
         <img src="https://github.com/ryrden.png" width="100px">
         <br>
         <sub>
           <b>Ryrden</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/torvalds">
-        <img src="https://github.com/torvalds.png" width="100px">
-        <br>
-        <sub>
-          <b>Torvalds</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/examplo">
-        <img src="https://github.com/examplo.png" width="100px">
-        <br>
-        <sub>
-          <b>Exemplo</b>
         </sub>
       </a>
     </td>

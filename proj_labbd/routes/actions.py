@@ -1,6 +1,7 @@
 # Import of Flask and Flask Session
 from flask import session, request, redirect, render_template, Blueprint
 from flask_login import login_required
+from psycopg2 import IntegrityError
 
 # Import Models
 from ..interactor.user import User
@@ -24,11 +25,16 @@ def register_driver():
     nationality = request.form["nationality"]
     url = request.form["url"] or ""
 
-    Admin.insert_driver(
-        driver_id, driver_ref, number, code, forename, surname, dob, nationality, url
-    )
+    try:
+        Admin.insert_driver(
+            driver_id, driver_ref, number, code, forename, surname, dob, nationality, url
+        )
 
-    return redirect("/overview")
+    except IntegrityError as _:
+        return render_template("components/invalid_feedback.html.jinja", message="An integrity error was found when inserting this driver, this probably happened because this id is already inserted in the table")
+        
+    except Exception as _:
+        return render_template("components/invalid_feedback.html.jinja", message="An unknown error was found inserting driver with these values")
 
 @actions_bp.route("/register/racing-team", methods=["POST"])
 @login_required
@@ -40,9 +46,15 @@ def register_racing_team():
     nationality = request.form["nationality"]
     url = request.form["url"] or ""
 
-    Admin.insert_racing_team(constructor_id, constructor_ref, name, nationality, url)
+    try:
+        Admin.insert_racing_team(constructor_id, constructor_ref, name, nationality, url)
+        return render_template("components/invalid_feedback.html.jinja", message="Racing team inserted successfully")
 
-    return redirect("/overview")
+    except IntegrityError as _:
+       return render_template("components/invalid_feedback.html.jinja", message="An integrity error was found when inserting this racing team, this probably happened because this id is already inserted in the table")
+
+    except Exception as _:
+        return render_template("components/invalid_feedback.html.jinja", message="An unknown error was found inserting racing team with these values")
 
 
 @actions_bp.route("/fetch/driver", methods=["POST"])

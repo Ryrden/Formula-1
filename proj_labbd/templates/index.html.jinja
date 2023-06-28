@@ -18,6 +18,8 @@
 	</div>
 </article>
 {% if response == "invalid_credentials" %}
-{% include "components/invalid_credentials.html.jinja" %}
+{% with title="Invalid Credentials", message="User not found in the database with those credentials."%}
+{% include "components/invalid_feedback.html.jinja" %}
+{% endwith %}
 {% endif %}
 {% endblock %}

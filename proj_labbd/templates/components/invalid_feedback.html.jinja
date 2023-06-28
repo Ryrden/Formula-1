@@ -1,11 +1,12 @@
+
 <section>
     <dialog id="modal">
         <article>
             <a href="#close" aria-label="Close" class="close" data-target="modal"
                 onclick="toggleModal(event)"></a>
-            <h3>Invalid Credentials</h3>
+            <h3>{{ title }}</h3>
             <p>
-                User not found in the database with those credentials.
+                {{ message }}
             </p>
             <footer>
                 <a href="#confirm" role="button" data-target="modal" onclick="toggleModal(event)">Ok</a>
