@@ -1,5 +1,6 @@
 import psycopg2
 
+
 env = {
     "DB_HOST": "localhost",
     "DB_PORT": 5432,
@@ -13,6 +14,7 @@ class DatabaseConnection:
     _instance = None
 
     def __new__(cls, *args, **kwargs):
+        """Singleton Database Connection"""
         if not cls._instance:
             cls._instance = super().__new__(cls, *args, **kwargs)
             cls._instance = psycopg2.connect(

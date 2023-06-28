@@ -27,7 +27,6 @@ $$ LANGUAGE plpgsql;
 CREATE EXTENSION IF NOT EXISTS Cube;
 CREATE EXTENSION IF NOT EXISTS EarthDistance;
 
--- TODO: Criar indice
 DROP FUNCTION IF EXISTS report2(text);
 CREATE OR REPLACE FUNCTION report2(text)
     RETURNS TABLE
@@ -64,7 +63,6 @@ $$ LANGUAGE plpgsql;
 
 -- Relatório 3
 
--- TODO: Criar indice
 CREATE OR REPLACE FUNCTION report3(int)
     RETURNS TABLE
             (
@@ -111,7 +109,6 @@ $$ LANGUAGE plpgsql;
 
 -- Relatório 5
 
--- TODO: Criar indice
 CREATE OR REPLACE FUNCTION report5(int)
     RETURNS TABLE
             (

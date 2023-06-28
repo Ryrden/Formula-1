@@ -11,8 +11,7 @@
     </div>
 
     {% if get_username() != None %}
-    <ul>
-        {{ request.path }}
+    <ul class="nav-options">
         {% if actions or request.path == "/fetch/driver" %}
         {% for action in actions %}
         {% with window=action%}
@@ -20,7 +19,7 @@
         {% endwith %}
         <li>
             <button onclick="openAction({{action.id}})" class="primary-btn button" role="button">
-                <i class="fa-solid fa-user-plus"></i>
+                <i class="fa-solid fa-user-plus i-person"></i>
                 {{ action.title }}
             </button>
         </li>

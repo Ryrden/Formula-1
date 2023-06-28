@@ -25,8 +25,15 @@ i {
     margin-left: 0.5rem;
 }
 
+.i-person {
+    margin-top: 0.4rem;
+    margin-right: 0.5rem;
+}
+
 .primary-btn {
     background-color: var(--tertiary);
+    display: flex;
+    justify-items: center;
 }
 
 .secondary-btn {
@@ -34,7 +41,8 @@ i {
 }
 
 .button {
-    margin-right: 1rem;
     font-weight: bold;
     color: var(--white);
+    max-height: 50px;
+    margin-left: 0;
 }

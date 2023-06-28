@@ -4,6 +4,7 @@ from .base_service import with_db_connection
 class RaceService:
     @staticmethod
     def _get_dto_race(race_id, year, rownd, circuit_id, name, date, time):
+        """Get a"""
         return {
             "race_id": race_id,
             "year": year,
@@ -16,7 +17,8 @@ class RaceService:
 
     @staticmethod
     @with_db_connection
-    def get_racer_by_id(cursor, race_id):
+    def get_races_by_id(cursor, race_id):
+        """Get races by id from database"""
         query = "SELECT R.raceid, R.year, R.round, R.circuitid, R.name, R.date, R.time FROM Races R WHERE R.raceid = %s;"
         params = (race_id,)
 
@@ -31,6 +33,7 @@ class RaceService:
     @staticmethod
     @with_db_connection
     def get_all_races(cursor):
+        """Get all races from database"""
         query = "SELECT R.raceid, R.year, R.round, R.circuitid, R.name, R.date, R.time FROM Races R;"
 
         cursor.execute(query)
@@ -47,6 +50,7 @@ class RaceService:
     @staticmethod
     @with_db_connection
     def get_amount_races(cursor):
+        """ "Get amount races from database"""
         query = "SELECT COUNT(R.raceid) FROM Races R;"
 
         cursor.execute(query)

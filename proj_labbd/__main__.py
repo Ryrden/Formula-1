@@ -2,6 +2,7 @@ from proj_labbd import app
 
 
 def main():
+    """Main function."""
     app.run(debug=True)
 
 

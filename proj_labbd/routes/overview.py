@@ -38,36 +38,37 @@ def overview():
 
 
 def _get_actions_admin():
+    """Return the Actions for the Admin User"""
     register_racing_team = {
         "id": 0,
         "title": "Register Racing Team",
         "description": "Register a new Racing Team in the Database",
-        "operation": "register",
+        "operation": "Register",
         "fields": [
             {
                 "name": "constructor_id",
-                "label": "Constructor Id",
+                "label": "Constructor Id *",
                 "type": "number",
                 "placeholder": "Racing Team Identifier",
                 "required": "required",
             },
             {
                 "name": "constructor_ref",
-                "label": "Constructor Ref",
+                "label": "Constructor Ref *",
                 "type": "text",
                 "placeholder": "Racing Team Reference",
                 "required": "required",
             },
             {
                 "name": "name",
-                "label": "Constructor Name",
+                "label": "Constructor Name *",
                 "type": "text",
                 "placeholder": "Racing Team Name",
                 "required": "required",
             },
             {
                 "name": "nationality",
-                "label": "Constructor Nationality",
+                "label": "Constructor Nationality *",
                 "type": "text",
                 "placeholder": "Racing Team Nationality",
                 "required": "required",
@@ -87,25 +88,25 @@ def _get_actions_admin():
         "id": 1,
         "title": "Register Driver",
         "description": "Register a new Driver in the Database",
-        "operation": "register",
+        "operation": "Register",
         "fields": [
             {
                 "name": "driver_id",
-                "label": "DriverId",
+                "label": "Driver Id *",
                 "type": "number",
                 "placeholder": "Driver ID",
                 "required": "required",
             },
             {
                 "name": "driver_ref",
-                "label": "DriverRef",
+                "label": "Driver Ref *",
                 "type": "text",
                 "placeholder": "Driver Reference",
                 "required": "required",
             },
             {
                 "name": "number",
-                "label": "DriverNumber",
+                "label": "Driver Number",
                 "type": "number",
                 "placeholder": "Driver Number",
                 "required": "",
@@ -119,28 +120,28 @@ def _get_actions_admin():
             },
             {
                 "name": "forename",
-                "label": "Forename",
+                "label": "Forename *",
                 "type": "text",
                 "placeholder": "Driver Forename",
                 "required": "required",
             },
             {
                 "name": "surname",
-                "label": "Surname",
+                "label": "Surname *",
                 "type": "text",
                 "placeholder": "Driver Surname",
                 "required": "required",
             },
             {
                 "name": "dob",
-                "label": "dob",
+                "label": "Date of Birth *",
                 "type": "date",
                 "placeholder": "Driver Date of Birth",
                 "required": "required",
             },
             {
                 "name": "nationality",
-                "label": "nationality",
+                "label": "Nationality *",
                 "type": "text",
                 "placeholder": "Driver Nationality",
                 "required": "required",
@@ -160,11 +161,12 @@ def _get_actions_admin():
 
 
 def _get_actions_racing_team():
+    """Return the Actions for the Racing Team User"""
     fetch_driver = {
         "id": 0,
         "title": "Fetch Driver",
         "description": "Fetch a Driver from the Database",
-        "operation": "fetch",
+        "operation": "Fetch",
         "fields": [
             {
                 "name": "driver_name",
@@ -181,6 +183,7 @@ def _get_actions_racing_team():
 
 
 def _get_overview_admin():
+    """Return the Overview Cards for the Admin User"""
     amount_drivers = {
         "image": "driver.png",
         "title": "Amount of Drivers",
@@ -217,6 +220,7 @@ def _get_overview_admin():
 
 
 def _get_overview_racing_team(source_id):
+    """Return the Overview Cards for the Racing Team User"""
     amount_wins = {
         "image": "winner.png",
         "title": "Amount of Wins",
@@ -245,6 +249,7 @@ def _get_overview_racing_team(source_id):
 
 
 def _get_overview_driver(source_id):
+    """Return the Overview Cards for the Driver User"""
     amount_wins = {
         "image": "winner.png",
         "title": "Amount of Wins",

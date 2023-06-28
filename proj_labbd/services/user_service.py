@@ -5,6 +5,7 @@ from .base_service import with_transaction_db_connection
 class UserService:
     @staticmethod
     def _get_dto_user(user_id, username, user_type, source_id):
+        """Returns a dictionary with the user data"""
         return {
             "user_id": user_id,
             "username": username,
@@ -16,6 +17,7 @@ class UserService:
     @staticmethod
     @with_db_connection
     def login(cursor, username, password):
+        """Returns a dictionary with the user data if the user exists, None otherwise"""
         query = "SELECT U.userid, U.login, U.type, U.source_id FROM Users U WHERE login = %s AND password = md5(%s)"
         params = (username, password)
 
@@ -32,6 +34,7 @@ class UserService:
     @staticmethod
     @with_transaction_db_connection
     def register_log(cursor, user_id):
+        """Registers a log in the database"""
         query = "INSERT INTO log_table (userid) VALUES (%s)"
         params = (user_id,)
 
@@ -54,6 +57,7 @@ class UserService:
     @staticmethod
     @with_db_connection
     def get_name(cursor, user_type, source_id):
+        """Returns the name of the user"""
         params = (str(source_id),)
 
         match user_type:
@@ -75,6 +79,7 @@ class UserService:
     @staticmethod
     @with_db_connection
     def get_all_users(cursor):
+        """Returns a list with all the users"""
         query = "SELECT U.userid, U.login, U.type, U.source_id FROM Users;"
 
         cursor.execute(query)

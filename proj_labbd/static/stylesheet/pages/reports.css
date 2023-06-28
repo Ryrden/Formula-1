@@ -3,3 +3,14 @@
 	grid-template-columns: repeat(4, 1fr);
 	grid-gap: 1rem;
 }
+
+.table-content {
+	height: 500px;
+	overflow-y: scroll;
+}
+
+.empty-state {
+	font-size: 2rem;
+	text-align: center;
+	font-style: italic;
+}
