@@ -84,7 +84,7 @@ def _get_report_racing_team(source_id):
     report_1 = {
         "id": 3,
         "title": "Report 1",
-        "description": "Number of results, by status",
+        "description": "Pilots which runs by racing team",
         "has_input": False,
         "headers": ["Name", "Wins"],
         "rows": RacingTeam.get_report(REPORT_1_RACING_TEAM, source_id),
@@ -93,7 +93,7 @@ def _get_report_racing_team(source_id):
     report_2 = {
         "id": 4,
         "title": "Report 2",
-        "description": "Number of results, by status",
+        "description": "Number of results of racing team, by status",
         "has_input": False,
         "headers": ["Status", "Count"],
         "rows": RacingTeam.get_report(REPORT_2_RACING_TEAM, source_id),
@@ -107,7 +107,7 @@ def _get_report_driver(source_id):
     report_1 = {
         "id": 5,
         "title": "Report 1",
-        "description": "Number of results, by status",
+        "description": "Total victories by run and year",
         "has_input": False,
         "headers": ["Wins", "Year", "Race"],
         "rows": Driver.get_report(REPORT_1_DRIVER, source_id),
@@ -116,7 +116,7 @@ def _get_report_driver(source_id):
     report_2 = {
         "id": 6,
         "title": "Report 2",
-        "description": "Number of results, by status",
+        "description": "Number of results of driver, by status",
         "has_input": False,
         "headers": ["Status", "Count"],
         "rows": Driver.get_report(REPORT_2_DRIVER, source_id),
